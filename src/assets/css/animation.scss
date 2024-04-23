@@ -1,0 +1,53 @@
+// 一些过渡动画
+
+@keyframes fold-in {
+  0% {
+    // transform: translate3d(0, 100%, 0);
+    // transform: translateY(-100%);
+    opacity: 0;
+    height: 0;
+    font-size: 0 !important;
+  }
+
+  50% {
+    height: auto;
+  }
+
+  100% {
+    // transform: translateY(0);
+    opacity: 1;
+    font-size: 0 !important;
+  }
+}
+
+@keyframes fold-out {
+  0% {
+    // transform: translateY(0);
+    height: 150px;
+    font-size: 0 !important;
+  }
+
+  /* 50% {
+    opacity: 0;
+  } */
+
+  100% {
+    // transform: translateY(-100%);
+    opacity: 0;
+    height: 0;
+
+    // font-size: 18px;
+  }
+}
+
+.bp-enter {
+  /* top: 0; */
+}
+.bp-enter-active {
+  animation-name: fold-in;
+  animation-duration: 0.5s;
+}
+.bp-leave-active {
+  animation-name: fold-out;
+  animation-duration: 0.5s;
+}

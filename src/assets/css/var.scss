@@ -1,0 +1,25 @@
+$phone: 750px; // 手机端  750以下
+$pad: 1280px; // pad 端  750~1280
+$pc: 1920px; // pc 端    1280以上
+
+/**
+ * 顶部栏高度
+ */
+$pcTopBarHeight: 137rem; // pc 顶部栏的高度
+$mobTopBarHeight: 130rem; // 移动端 顶部栏高度
+
+/**
+ * pc 主体内容高度
+ */
+$mainHeight: calc(100vh - (#{$pcTopBarHeight}));
+
+/**
+ * 移动端 主体内容高度
+ */
+$mobMainHeight: calc(100vh - (#{$mobTopBarHeight}));
+
+// 钱包地址在菜单栏的间隙
+$walletBtnMenuGap: 5rem;
+
+// 移动端首页的间隙
+$mobHomeGap: 50rem;

@@ -1,0 +1,93 @@
+// 字体图标
+.iconfont {
+  display: block;
+}
+
+// element plus
+
+// 消息
+.el-message {
+  z-index: 99999 !important;
+
+  .el-icon {
+    font-size: 15px !important;
+  }
+}
+
+// 指令loading
+.el-loading-mask {
+  background-color: rgba(225, 225, 225, 0.4) !important;
+}
+
+// vant
+.van-popup {
+  border-radius: 16rem;
+  background: transparent !important;
+}
+
+// 通用弹窗
+.em-pop-wrap {
+  width: 345rem;
+  border-radius: 10rem;
+  background-color: #eaf4ff !important;
+  border: solid 2px #fff;
+}
+
+// 按钮通用样式
+.func-btn {
+  $color: #07caf0;
+  $range: 2px; // 下沉幅度
+
+  background-image: linear-gradient(90deg, #18e7ca 0%, #01c0fd 100%);
+  border-radius: 100px;
+  color: #fff;
+  box-shadow: 0 $range 0 0 $color;
+  padding-top: $range;
+
+  // 下沉效果
+  &.sink {
+    &:active {
+      // box-shadow: 0 1px 0 0 #2877c9;
+      box-shadow: 0 0 0 0 $color;
+      transform: translateY($range);
+    }
+  }
+
+  // 置灰
+  &.disable {
+    filter: grayscale(99%);
+  }
+}
+
+.el-popper.el-dropdown__popper {
+  border: solid 1px #8c855b;
+  background-color: #070707;
+  color: #fff;
+  border-radius: 8px;
+  width: 160rem;
+  padding: 52rem 0;
+}
+
+.el-dropdown-menu.panel {
+  background-color: transparent !important;
+}
+.el-popper.is-light .el-popper__arrow::before {
+  background-color: #070707;
+  border: solid 1px #8c855b;
+}
+
+.el-popper__arrow {
+  z-index: 999;
+}
+
+.menu-child-item {
+  text-align: center;
+  cursor: pointer;
+  &:not(:first-child) {
+    margin-top: 41rem;
+  }
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}

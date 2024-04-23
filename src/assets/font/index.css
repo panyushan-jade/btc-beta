@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'pressStart';
+  src: url('./PressStart2P-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'sg';
+  src: url('./SG12.ttf');
+}
+
+@font-face {
+  font-family: 'scr';
+  src: url('./slkscr.ttf');
+}
+
+@font-face {
+  font-family: 'scrb';
+  src: url('./slkscrb.ttf');
+}
+
+.font-pressStart {
+  font-family: 'pressStart';
+}
+
+.font-sg {
+  font-family: 'sg';
+}
+
+.font-scr {
+  font-family: 'scr';
+}
+
+.font-scrb {
+  font-family: 'scrb';
+}
