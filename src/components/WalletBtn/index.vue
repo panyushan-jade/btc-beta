@@ -34,9 +34,8 @@ async function handleLink() {
   </div>
   <el-dialog
     v-model="walletDialogVisible"
-    title="Choose Wallet"
     class="bg-#2b2b2b rounded-10"
-    width="500"
+    width="500rem"
     align-center
   >
     <template #title>
