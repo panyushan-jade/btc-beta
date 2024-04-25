@@ -12,10 +12,10 @@
     </router-view>
   </div>
 
-  <div v-if="appStore.curDevice === 'phone'" class="text-23 text-center text-#fff bg-#080808 pb-100">
+  <!-- <div v-if="appStore.curDevice === 'phone'" class="text-23 text-center text-#fff bg-#080808 pb-100">
     © 2024 BTC Beta All rights reserved.
   </div>
-  <Footer v-else />
+  <Footer v-else /> -->
 </template>
 
 <script>

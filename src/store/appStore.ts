@@ -17,6 +17,7 @@ const INIT_ETHERS = {
   cachedProvider: null,
   baseGasPrice: 0, // 基础gasPrice，后面设置gasPrice的时候，+= 此值
   chainId: '',
+  wallet: ''
   // tips:
   // const appStore = useAppStore();
   // const { ethers, signerValue } = appStore.ethersObj;
@@ -26,6 +27,10 @@ const INIT_ETHERS = {
 const useAppStore = defineStore('app', {
   state: () => ({
     defaultAccount: '', //钱包账号
+    wallet: '', //当前连接钱包
+
+
+
     lang: '', // 语言
     curDevice: 'pad',
     rightChain: true, // 当前页面是否在对的链
@@ -45,6 +50,23 @@ const useAppStore = defineStore('app', {
   }),
 
   actions: {
+    /* 新代码 */
+    /**
+     * 设置钱包地址
+     */
+    async setAccount(account: string) {
+      this.defaultAccount = account;
+    },
+    /**
+     * 设置当前连接的钱包
+     */
+    async setWallet(wallet: string) {
+      this.wallet = wallet;
+    },
+
+
+
+    /* 旧代码 视情况清理 */
     /**
      * 连接小狐狸钱包
      */
@@ -76,13 +98,6 @@ const useAppStore = defineStore('app', {
       this.ethersObj.chainId = toRaw(provider).provider.chainId;
       // 添加一系列钱包监听
       this.subscribeProvider();
-    },
-
-    /**
-     * 设置钱包地址
-     */
-    async setAccount(account: string) {
-      this.defaultAccount = account;
     },
 
     /**

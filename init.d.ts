@@ -19,6 +19,8 @@ declare module '*.js?inline' {
 }
 
 declare interface Window {
+  unisat;
+  okxwallet;
   ethereum;
   bpLoading;
   chainModalShow;

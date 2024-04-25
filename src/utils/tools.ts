@@ -15,7 +15,7 @@ export function getRandom(min: number, max: number): number {
  * @param frontLen 前面多少颗星星
  * @param endLen 结尾多少个星星
  */
-export function plusStar(str: string, frontLen: number, endLen: number) {
+export function plusStar(str: string, frontLen: number=4, endLen: number=4) {
   if (str?.length === undefined) return '';
   var len = str.length - frontLen - endLen;
   var xing = '';

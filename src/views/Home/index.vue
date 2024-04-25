@@ -7,13 +7,15 @@ import Roadmap from './components/Roadmap/index.vue';
 import SubScribe from './components/Subscribe/index.vue';
 import { useAppStore } from '@store/appStore';
 import Feature from './components/Features/index.vue';
+import useInscriptions from '../../hooks/useInscriptions'
 
 const appStore = useAppStore();
+const Inscriptions = useInscriptions()
 </script>
 
 <template>
   <div class="home-wrap">
-    <img v-if="appStore.curDevice === 'phone'" src="@img/mob-banner.png" alt="" class="w-full" />
+    <!-- <img v-if="appStore.curDevice === 'phone'" src="@img/mob-banner.png" alt="" class="w-full" />
     <img v-else src="@img/banner.png" alt="" class="w-full" />
 
     <Introduce />
@@ -28,7 +30,7 @@ const appStore = useAppStore();
 
     <Roadmap />
 
-    <SubScribe />
+    <SubScribe /> -->
   </div>
 </template>
 
