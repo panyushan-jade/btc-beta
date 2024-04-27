@@ -2,8 +2,14 @@
 import Menu from './Menu.vue';
 import WalletBtn from '@cps/WalletBtn/index.vue';
 import { useTopBar } from './useTopBar';
+import { nextTick,ref,onMounted } from 'vue';
 
 const { pickLang, langList, curLang, launchTo } = useTopBar();
+const topBarWrap = ref(null);
+const hearderHeight = ref(0)
+onMounted(() => {
+  hearderHeight.value = topBarWrap.value.clientHeight
+})
 
 // 菜单是否为开启状态
 const isOpenMenu = ref(false);
@@ -12,10 +18,18 @@ function handleMenu() {
   // 控制外部滚动条是否能滚动
   document.body.style.overflow = isOpenMenu.value ? 'hidden' : 'auto';
 }
+
+const changeWalletMenu = (open) => {
+  if(open){
+    isOpenMenu.value = false;
+  }
+}
+
+
 </script>
 
 <template>
-  <div class="top-bar-wrap">
+  <div class="top-bar-wrap" id="topbarmodal" ref="topBarWrap">
     <div class="top-bar-content absolute bg-[tomato] h-full flex items-center">
       <!-- 控制菜单显示和隐藏 按钮 -->
       <div :class="['toggle-container', { opening: isOpenMenu }]" @click="handleMenu">
@@ -34,12 +48,13 @@ function handleMenu() {
       <!-- 一些工具：钱包、选择语言等 -->
       <div class="top-bar-tools">
         <!-- 已链接钱包展示钱包地址 -->
-        <WalletBtn />
+        <WalletBtn :hearderHeight="hearderHeight"  :showMenu="isOpenMenu" :changeWalletMenu="changeWalletMenu" />
       </div>
 
       <!-- 移动端菜单 -->
     </div>
     <Menu :isShowMenu="isOpenMenu" @hide="handleMenu" />
+    
   </div>
 </template>
 
@@ -97,7 +112,7 @@ function handleMenu() {
   height: 26px;
   @include flexPos(space-between);
   flex-direction: column;
-  z-index: 9999999;
+  // z-index: 9999999;
   /* position: absolute; */
 
   .bar {

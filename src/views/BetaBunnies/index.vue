@@ -1,32 +1,69 @@
 <script setup lang="ts">
-import BunnieItem from './BunnieItem.vue';
-import { useBunnies } from './useBunnies';
-import { useAppStore } from '@/store/appStore';
+import VoteItem from "./VoteItem.vue";
+import { useBunnies } from "./useBunnies";
+import { useAppStore } from "@/store/appStore";
+import { ref } from "vue";
 
 const appStore = useAppStore();
-
 const { bunniesList } = useBunnies();
 
-const launchTo = () => {
-  window.open('https://www.okx.com/web3/marketplace/nft/collection/btc/alpha-aurum-bunnies');
+const currentIndex = ref(1);
+const clickHandle = (v) => {
+  currentIndex.value = v;
 };
+
+const voteList = [
+  { id: 1, votes: 10 },
+  { id: 2, votes: 3 },
+  { id: 3, votes: 5 },
+  { id: 4, votes: 23 },
+];
 </script>
 
 <template>
   <div class="beta-bunnies-wrap">
     <img
       v-if="appStore.curDevice === 'phone'"
-      src="@img/betaBunnies/mob-banner-betaBunnies.png"
+      src="@img/betaBunnies/mob-bunnies.png"
       alt=""
       class="w-full"
     />
-    <img v-else src="@img/betaBunnies/banner-betaBunnies.png" alt="" class="w-full" />
+    <img v-else src="@img/betaBunnies/pc-bunnies.png" alt="" class="w-full" />
+    <div class="w-90% md:w-1300 mx-auto">
+      <div class="flex items-center justify-between mb-50">
+        <div class="flex items-center">
+          <button
+            class="w-250 rounded-10 p-15 mr-20"
+            :class="{
+              'bg-#FDFFB5': currentIndex === 1,
+              'text-white': currentIndex === 2,
+            }"
+            @click="clickHandle(1)"
+          >
+            Alpha Validator
+          </button>
+          <button
+            class="w-250 rounded-10 p-15"
+            :class="{
+              'bg-#FDFFB5': currentIndex === 2,
+              'text-white': currentIndex === 1,
+            }"
+            @click="clickHandle(2)"
+          >
+            Cryptic Validator
+          </button>
+        </div>
+        <div>Apply Now</div>
+      </div>
+      <div class="flex flex-wrap gap-110 justify-evenly">
+        <VoteItem :voteList="voteList" />
+      </div>
+    </div>
+    <!-- <button class="go-to-buy" @click="launchTo">GO TO BUY</button> -->
 
-    <button class="go-to-buy" @click="launchTo">GO TO BUY</button>
+    <!-- <BunnieItem :bunnie="bunniesList[0]" class="mt-210 md:(mt-0)" />
 
-    <BunnieItem :bunnie="bunniesList[0]" class="mt-210 md:(mt-0)" />
-
-    <BunnieItem :bunnie="bunniesList[1]" class="mt-213" />
+    <BunnieItem :bunnie="bunniesList[1]" class="mt-213" /> -->
   </div>
 </template>
 
@@ -36,7 +73,7 @@ const launchTo = () => {
 }
 
 .go-to-buy {
-  background-image: url('@img/betaBunnies/bg-go-to-buy.png');
+  background-image: url("@img/betaBunnies/bg-go-to-buy.png");
   background-size: 100% 100%;
   font-weight: bold;
   position: absolute;

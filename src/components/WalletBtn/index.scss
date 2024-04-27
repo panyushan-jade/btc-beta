@@ -1,0 +1,19 @@
+$gap: 90rem;
+
+@mixin mixItem {
+  border-radius: 0 30rem 30rem 0;
+  // height: 260rem;
+  cursor: pointer;
+  position: relative;
+  margin-top: $gap;
+}
+
+@mixin menuItemLine {
+  content: '';
+  width: calc(100% - 100rem);
+  height: 2rem;
+  background-color: #313131;
+  position: absolute;
+  left: 50rem;
+  bottom: 0;
+}
