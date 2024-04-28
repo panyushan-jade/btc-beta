@@ -17,7 +17,8 @@ import POINTS from "@/assets/img/points.png";
 import TOKEN from "@/assets/img/token.png";
 import BUNNIES from "@/assets/img/bunnies.png";
 import DISCONNECT from "@/assets/img/disconnect.png";
-
+import WALLET from '@/assets/img/wallet.png';
+import ARROW from '@/assets/img/arrow.png';
 const appStore = useAppStore();
 const isShowMenu = ref(false);
 const connectDialogVisible = ref(false);
@@ -127,19 +128,19 @@ const handleMenu = () => {
   document.body.style.overflow = isShowMenu.value ? 'hidden' : 'auto';
   props.changeWalletMenu(isShowMenu.value)
 }
-
-const handleLaunchTo = (item) => {};
 </script>
 
 <template>
   <template v-if="appStore.curDevice === 'phone'">
     <div class="wallet-wrap text-24">
       <div
-        v-if="appStore.defaultAccount"
-        class="account-address"
+      v-if="appStore.defaultAccount"
+        class="account-address flex"
         @click="handleMenu"
       >
-        {{ plusStar(appStore.defaultAccount, 4, 4) }}
+          <img :src="WALLET" alt="" class="w-40">
+          <span class="ml-10 mr-10 text-20">{{ plusStar(appStore.defaultAccount, 4, 4) }}</span>
+          <img :src="ARROW" alt="">
       </div>
       <!-- 连接钱包 -->
       <button v-else class="connect-btn font-scr" @click="handleMenu">
@@ -156,7 +157,7 @@ const handleLaunchTo = (item) => {};
         leave-active-class="animate__animated animate__fadeOutLeft"
       >
         <div class="wallet-panel" v-show="isShowMenu" :style="topStyle">
-          <div class="pt-100rem">
+          <div class="pt-100 pb-100">
             <template v-if="appStore.defaultAccount">
               <div
               @click="handleLink(m)"
@@ -193,8 +194,10 @@ const handleLaunchTo = (item) => {};
         placement="bottom-start"
       >
         <!-- 已链接钱包展示钱包地址 -->
-        <div v-if="appStore.defaultAccount" class="account-address">
-          {{ plusStar(appStore.defaultAccount, 4, 4) }}
+        <div v-if="appStore.defaultAccount" class="account-address flex">
+          <img :src="WALLET" alt="">
+          <span class="ml-10 mr-10">{{ plusStar(appStore.defaultAccount, 4, 4) }}</span>
+          <img :src="ARROW" alt="">
         </div>
         <!-- 连接钱包 -->
         <button v-load="loadLink" v-else class="connect-btn font-scr">
@@ -220,7 +223,7 @@ const handleLaunchTo = (item) => {};
               v-for="m in walletList"
               :key="m.id"
             >
-              <img :src="m.src" class="ml-20" />
+              <img :src="m.src" class="ml-20" :class="[ m.id === 1 || m.id === 2 ? 'ml-26' : '']" />
               <span class="flex-1 text-15">{{ m.name }}</span>
             </div>
           </template>
