@@ -4,8 +4,10 @@ import Vote from './Vote.vue'
 import Community from './Community.vue';
 import Application from './Application.vue';
 const appStore = useAppStore();
-
-
+const ContentType = ref('Apply')
+const changeContentType = (value: string) =>{
+  ContentType.value = value
+}
 </script>
 
 <template>
@@ -18,11 +20,11 @@ const appStore = useAppStore();
     />
     <img v-else src="@img/betaBunnies/pc-bunnies.png" alt="" class="w-full" />
 
-    <!-- <Vote /> -->
+    <Vote v-if="ContentType === 'List'" :changeContentType="changeContentType" />
 
-    <!-- <Community /> 两套代码PC和mob -->
+    <Community v-if="ContentType === 'Binding'" />
 
-    <Application />
+    <Application v-if="ContentType === 'Apply'" />
   </div>
 </template>
 
