@@ -47,27 +47,10 @@ const menuListValue = reactive<IMemu[]>([
   },
   {
     id: 2,
-    name: 'Resources',
+    name: 'BRC-202',
     logo: require('@img/holder.png'),
-    urlName: 'Resources',
+    urlName: '',
     active: false,
-    children: [
-      {
-        id: 1,
-        name: 'Gitbook',
-        logo: require('@img/holder.png'),
-        urlName: '',
-        active: false,
-        link: 'https://btcbetas-organization.gitbook.io/btc-beta-doc/',
-      },
-      {
-        id: 2,
-        name: 'Support',
-        logo: require('@img/holder.png'),
-        urlName: '',
-        active: false,
-      },
-    ],
   },
   {
     id: 3,

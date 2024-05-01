@@ -2,7 +2,8 @@
 import { useAppStore } from "@/store/appStore";
 import { plusStar } from "@/utils/tools";
 import { ref,onMounted,nextTick,reactive,watch } from "vue";
-import { ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
+import useConnect from "@/hooks/useConnect"
 
 import OKX from "@/assets/img/okx.png";
 import UNISAT from "@/assets/img/unisat.png";
@@ -19,6 +20,7 @@ import DISCONNECT from "@/assets/img/disconnect.png";
 import WALLET from '@/assets/img/wallet.png';
 import ARROW from '@/assets/img/arrow.png';
 const appStore = useAppStore();
+const { connected } = useConnect();
 const isShowMenu = ref(false);
 const connectDialogVisible = ref(false);
 const installDialogVisible = ref(false);
@@ -30,6 +32,7 @@ const props = defineProps<{
   showMenu: boolean
 }>();
 let topStyle = reactive({ top: "0px", });
+const beingUsedWallet = ref(null)
 
 nextTick(() => {
   topStyle.top = props.hearderHeight + "px";
@@ -46,6 +49,7 @@ const walletList = [
     id: 1,
     name: "UNISAT WALLET",
     src: UNISAT,
+    WalletName: "UNISAT"
   },
   {
     id: 2,
@@ -61,6 +65,7 @@ const walletList = [
     id: 4,
     name: "OKX WALLET",
     src: OKX,
+    WalletName: "OKX"
   },
   {
     id: 5,
@@ -104,6 +109,9 @@ const menuList = [
     id: 4,
     name: "Disconnect",
     src: DISCONNECT,
+    handle:() => {
+      appStore.disconnectWallet()
+    }
   },
 ];
 
@@ -111,10 +119,20 @@ const menuList = [
  * 连接钱包
  */
 async function handleLink(m) {
+  console.log(m);
+  
+  if(m.WalletName){
+    beingUsedWallet.value = m
+    connected(m.WalletName,(account,error)=>{
+      connectDialogVisible.value = false;
+    })
+    connectDialogVisible.value = true;
+  }else{
+    ElMessage.info("Coming soon")
+  }
   // not install弹窗
   // installDialogVisible.value = true;
   // 正在连接弹窗
-  connectDialogVisible.value = true;
 
   // if (loadLink.value) return;
   // loadLink.value = true;
@@ -126,6 +144,24 @@ const handleMenu = () => {
   isShowMenu.value = !isShowMenu.value;
   document.body.style.overflow = isShowMenu.value ? 'hidden' : 'auto';
   props.changeWalletMenu(isShowMenu.value)
+}
+const Sign = async() => {
+  console.log(Address);
+  
+  const sign = await signMessage(appStore.defaultAccount)
+  if(sign[0]){
+    return console.log('签名失败');
+  }
+  const publicKey = await getPublicKey()
+   if(publicKey[0]){
+    return console.log('获取公钥失败');
+  }
+  console.log({
+    Message: appStore.defaultAccount,
+    sign:sign[1],
+    publicKey:publicKey[1],
+  });
+  
 }
 </script>
 
@@ -205,7 +241,7 @@ const handleMenu = () => {
         <template #dropdown>
           <template v-if="appStore.defaultAccount">
             <div
-              @click="handleLink(m)"
+              @click="m.handle ? m.handle() : null"
               class="flex justify-around cursor-pointer items-center menu-child-item hover:text-#FFD770 rounded-10 ml-10 mr-10 p-10"
               v-for="m in menuList"
               :key="m.id"
@@ -232,6 +268,7 @@ const handleMenu = () => {
   </template>
   <el-dialog
     v-model="connectDialogVisible"
+    v-if="beingUsedWallet"
     class="bg-#2b2b2b rounded-10"
     width="500rem"
     center
@@ -240,8 +277,8 @@ const handleMenu = () => {
   >
     <div class="text-white text-25 text-center sm:text-40 md:text-40 lg:text-25 xl:text-25 pc:text-25">CHOOSE WALLET</div>
     <div class="flex flex-col items-center mt-10 mb-40">
-      <img :src="OKX" class="m-20 sm:w-120 md:w-120 lg:w-80 xl:w-80 pc:w-80" />
-      <div class="text-white text-20 sm:text-35 md:text-35 lg:text-20 xl:text-20 pc:text-20">OKX WALLET</div>
+      <img :src="beingUsedWallet.src" class="m-20 sm:w-120 md:w-120 lg:w-80 xl:w-80 pc:w-80" />
+      <div class="text-white text-20 sm:text-35 md:text-35 lg:text-20 xl:text-20 pc:text-20">{{ beingUsedWallet.name }}</div>
     </div>
     <div class="flex justify-center items-center mt-20">
       <el-icon color="#fff59c" class="sm:text-35 md:text-35 lg:text-20 xl:text-20 pc:text-20"><Clock /></el-icon>
