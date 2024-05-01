@@ -4,8 +4,10 @@ import Vote from './Vote.vue'
 import Community from './Community.vue';
 import Application from './Application.vue';
 const appStore = useAppStore();
-
-
+const ContentType = ref('Apply')
+const changeContentType = (value: string) =>{
+  ContentType.value = value
+}
 </script>
 
 <template>

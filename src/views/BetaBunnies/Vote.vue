@@ -4,7 +4,9 @@ import { useBunnies } from "./useBunnies";
 import { useAppStore } from "@/store/appStore";
 import EDIT from '@/assets/img/betaBunnies/edit.png'
 import { ref } from "vue";
-
+const {changeContentType} = defineProps({
+    changeContentType: Function
+})
 const appStore = useAppStore();
 const { bunniesList } = useBunnies();
 
@@ -46,7 +48,7 @@ const voteList = [
             Cryptic Validator
           </button>
         </div>
-        <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30)" >
+        <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30)" @click="changeContentType('Apply')">
           <img :src="EDIT" alt="" class="mr-10">
           Apply Now
         </div>

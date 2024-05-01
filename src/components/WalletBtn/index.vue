@@ -3,7 +3,6 @@ import { useAppStore } from "@/store/appStore";
 import { plusStar } from "@/utils/tools";
 import { ref,onMounted,nextTick,reactive,watch } from "vue";
 import { ElMessageBox } from "element-plus";
-import classNames from 'classNames'
 
 import OKX from "@/assets/img/okx.png";
 import UNISAT from "@/assets/img/unisat.png";
@@ -177,7 +176,7 @@ const handleMenu = () => {
                 v-for="m in walletList"
                 :key="m.id"
               >
-                <img :src="m.src" class="ml-50"  :class="['ml-50',classNames({'ml-60': m.name === 'UNISAT WALLET' || m.name === 'XVERSE WALLET'})]" />
+                <img :src="m.src" class="ml-50"  :class="['ml-50', {'ml-60': m.name === 'UNISAT WALLET' || m.name === 'XVERSE WALLET'}]" />
                 <span class="flex-1 text-15 text-30">{{ m.name }}</span>
               </div>
             </div>
