@@ -31,6 +31,24 @@ const routes: Array<RouteRecordRaw> = [
       needChains: curNeedChain(['bsc']), // 依赖的链
       needTips: true, // 链不对的时候，需不需要提示
     },
+    children:[
+      {
+        path: 'Vote',
+        name: 'Vote',
+        component: () => import(/* webpackChunkName: "Vote" */ '@/views/BetaBunnies/Vote.vue'),
+      },
+      {
+        path: 'Community',
+        name: 'Community',
+        component: () => import(/* webpackChunkName: "Community" */ '@/views/BetaBunnies/Community.vue'),
+      },
+      {
+        path: 'Application',
+        name: 'Application',
+        component: () => import(/* webpackChunkName: "Application" */ '@/views/BetaBunnies/Application.vue'),
+      },
+
+    ]
   },
 
   {

@@ -17,12 +17,13 @@ const appStore = useAppStore();
       class="w-full"
     />
     <img v-else src="@img/betaBunnies/pc-bunnies.png" alt="" class="w-full" />
-
+    <router-view>
+    </router-view>
     <!-- <Vote /> -->
 
     <!-- <Community /> 两套代码PC和mob -->
-
-    <Application />
+    
+    <!-- <Application /> -->
   </div>
 </template>
 

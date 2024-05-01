@@ -75,6 +75,29 @@ const menuListValue = reactive<IMemu[]>([
     logo: require('@img/holder.png'),
     urlName: 'BetaBunnies',
     active: false,
+    children: [
+      {
+        id: 1,
+        name: 'INTRODUCTION',
+        logo: require('@img/holder.png'),
+        urlName: 'Vote',
+        active: false,
+      },
+      {
+        id: 2,
+        name: 'VALIDATOR REWARD',
+        logo: require('@img/holder.png'),
+        urlName: 'Application',
+        active: false,
+      },
+      {
+        id: 3,
+        name: 'COMMUNITY REWARD',
+        logo: require('@img/holder.png'),
+        urlName: 'Community',
+        active: false,
+      },
+    ],
   },
   {
     id: 4,
