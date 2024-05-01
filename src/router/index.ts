@@ -47,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Application',
         component: () => import(/* webpackChunkName: "Application" */ '@/views/BetaBunnies/Application.vue'),
       },
+      {
+        path: 'BunnieItem',
+        name: 'BunnieItem',
+        component: () => import(/* webpackChunkName: "BunnieItem" */ '@/views/BetaBunnies/BunnieItem.vue'),
+      },
 
     ]
   },
