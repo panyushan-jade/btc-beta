@@ -19,6 +19,10 @@ import BUNNIES from "@/assets/img/bunnies.png";
 import DISCONNECT from "@/assets/img/disconnect.png";
 import WALLET from '@/assets/img/wallet.png';
 import ARROW from '@/assets/img/arrow.png';
+import usePublicKey from "@/hooks/usePublicKey";
+import useSignMessage from "@/hooks/useSignMessage";
+const signMessage = useSignMessage();
+const getPublicKey = usePublicKey();
 const appStore = useAppStore();
 const { connected } = useConnect();
 const isShowMenu = ref(false);
@@ -47,46 +51,16 @@ watch(() => props.showMenu, (value) => {
 const walletList = [
   {
     id: 1,
-    name: "UNISAT WALLET",
-    src: UNISAT,
-    WalletName: "UNISAT"
-  },
-  {
-    id: 2,
-    name: "XVERSE WALLET",
-    src: XVERSE,
-  },
-  {
-    id: 3,
-    name: "LEATHER WALLET",
-    src: LEATHER,
-  },
-  {
-    id: 4,
     name: "OKX WALLET",
     src: OKX,
     WalletName: "OKX"
   },
   {
-    id: 5,
-    name: "BIGGET WALLET",
-    src: BIGGET,
-  },
-  {
-    id: 6,
-    name: "PHANTON WALLET",
-    src: PHANTON,
-  },
-  {
-    id: 7,
-    name: "MAGIC EDEN",
-    src: MAGIC,
-  },
-  {
-    id: 8,
-    name: "ENKRYPT",
-    src: ENKRYPT,
-  },
+    id: 2,
+    name: "UNISAT WALLET",
+    src: UNISAT,
+    WalletName: "UNISAT"
+  }
 ];
 
 const menuList = [
@@ -109,7 +83,8 @@ const menuList = [
     id: 4,
     name: "Disconnect",
     src: DISCONNECT,
-    handle:() => {
+    handle:async () => {
+      // Sign()
       appStore.disconnectWallet()
     }
   },
@@ -123,10 +98,13 @@ async function handleLink(m) {
   
   if(m.WalletName){
     beingUsedWallet.value = m
+    connectDialogVisible.value = true;
     connected(m.WalletName,(account,error)=>{
       connectDialogVisible.value = false;
+    },()=>{
+      connectDialogVisible.value = false;
+      installDialogVisible.value = true
     })
-    connectDialogVisible.value = true;
   }else{
     ElMessage.info("Coming soon")
   }
@@ -146,8 +124,6 @@ const handleMenu = () => {
   props.changeWalletMenu(isShowMenu.value)
 }
 const Sign = async() => {
-  console.log(Address);
-  
   const sign = await signMessage(appStore.defaultAccount)
   if(sign[0]){
     return console.log('签名失败');
@@ -300,7 +276,7 @@ const Sign = async() => {
   >
     <div class="text-white text-20 sm:flex-col lg:flex-row flex mb-30 items-center">
       <el-icon color="#fff59c" class="mr-10 sm:text-80 md:text-80 lg:text-30 xl:text-30 pc:text-30"><WarningFilled /></el-icon>
-      <span class="md:text-30 sm:text-30 md:mt-20 sm:mt-20 lg:(mt-0 text-20) xl:(mt-0 text-20) pc:(mt-0 text-20)">okx wallet not isntalled</span>
+      <span class="md:text-30 sm:text-30 md:mt-20 sm:mt-20 lg:(mt-0 text-20) xl:(mt-0 text-20) pc:(mt-0 text-20)">{{ beingUsedWallet.WalletName }} wallet not isntalled</span>
     </div>
     <div class="color-#bebebe">PLEASE CLICK HERE TO WISIT THE PRODUCT</div>
     <div class="color-#bebebe">PAGE.AFTER IHSTALLIHG THE EXTEHSI0M,</div>

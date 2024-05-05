@@ -25,10 +25,6 @@ export const useFooter = () => {
           name: 'Press Kit',
           link: '/resources/BTC Beta.zip',
         },
-        {
-          name: 'Gitbook',
-          link: 'https://btcbetas-organization.gitbook.io/btc-beta-doc/',
-        },
       ],
     },
     {
@@ -49,7 +45,8 @@ export const useFooter = () => {
       title: 'Help',
       children: [
         {
-          name: 'Support',
+          name: 'Gitbook',
+          link: 'https://btcbetas-organization.gitbook.io/btc-beta-doc/',
         },
         {
           name: 'Terms & Conditions',

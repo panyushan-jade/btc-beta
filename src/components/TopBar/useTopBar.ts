@@ -63,7 +63,7 @@ const menuListValue = reactive<IMemu[]>([
         id: 1,
         name: 'INTRODUCTION',
         logo: require('@img/holder.png'),
-        urlName: 'Vote',
+        urlName: 'Introduction',
         active: false,
       },
       {
@@ -71,6 +71,7 @@ const menuListValue = reactive<IMemu[]>([
         name: 'VALIDATOR REWARD',
         logo: require('@img/holder.png'),
         urlName: 'Application',
+        // urlName: '',
         active: false,
       },
       {
@@ -78,6 +79,7 @@ const menuListValue = reactive<IMemu[]>([
         name: 'COMMUNITY REWARD',
         logo: require('@img/holder.png'),
         urlName: 'Community',
+        // urlName: '',
         active: false,
       },
     ],
@@ -90,24 +92,10 @@ const menuListValue = reactive<IMemu[]>([
     active: false,
   },
   {
-    id: 5,
-    name: 'Data Service',
-    logo: require('@img/holder.png'),
-    urlName: '',
-    active: false,
-  },
-  {
     id: 6,
     name: 'Launch with BTC Beta',
     logo: require('@img/holder.png'),
     urlName: '',
-    active: false,
-  },
-  {
-    id: 7,
-    name: 'About Us',
-    logo: require('@img/holder.png'),
-    urlName: 'about',
     active: false,
   },
 ]);

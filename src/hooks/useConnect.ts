@@ -2,9 +2,9 @@ import { useAppStore } from '@store/appStore';
 import { ElMessage } from "element-plus";
 const useConnect = () => {
     const appStore = useAppStore();
-    const connected = async (wallet: 'OKX'|'UNISAT' ,callback?:Function) => {
-        console.log(wallet,callback);
-        
+    const connected = async (wallet: 'OKX' | 'UNISAT', callback?: Function, notInstallCallback?: Function) => {
+        console.log(wallet, callback);
+
         if (wallet === 'OKX') {
             const ua = navigator.userAgent;
             const isIOS = /iphone|ipad|ipod|ios/i.test(ua);
@@ -29,24 +29,31 @@ const useConnect = () => {
                 } catch (error) {
                     console.log(error)
                     ElMessage.error(error.message)
-                    callback && callback(null,error)
+                    callback && callback(null, error)
                 }
 
+            } else {
+                notInstallCallback && notInstallCallback()
             }
+            return
         }
-        if(wallet === 'UNISAT' && typeof window.unisat !== 'undefined'){
-            try {
-                const accounts  = await window.unisat.requestAccounts();
-                // let UnisatPubKey = await window.unisat.getPublicKey()
-                if(accounts[0]){
-                    appStore.setAccount(accounts[0])
-                    appStore.setWallet(wallet)
-                    callback && callback(accounts[0])
+        if (wallet === 'UNISAT') {
+            if (typeof window.unisat !== 'undefined') {
+                try {
+                    const accounts = await window.unisat.requestAccounts();
+                    // let UnisatPubKey = await window.unisat.getPublicKey()
+                    if (accounts[0]) {
+                        appStore.setAccount(accounts[0])
+                        appStore.setWallet(wallet)
+                        callback && callback(accounts[0])
+                    }
+                } catch (error) {
+                    console.log(error)
+                    ElMessage.error(error.message)
+                    callback && callback(null, error)
                 }
-            } catch (error) {
-                console.log(error)
-                ElMessage.error(error.message)
-                callback && callback(null,error)
+            } else {
+                notInstallCallback && notInstallCallback()
             }
         }
     }

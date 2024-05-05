@@ -28,6 +28,7 @@ const useAppStore = defineStore('app', {
   state: () => ({
     defaultAccount: '', //钱包账号
     wallet: '', //当前连接钱包
+    token:'',
 
 
 
@@ -66,6 +67,12 @@ const useAppStore = defineStore('app', {
     disconnectWallet(){
       this.defaultAccount = '';
       this.wallet = '';
+    },
+    /**
+     * jwttoken存储
+     */
+    setToken(token: string) {
+      this.token = token;
     },
 
 

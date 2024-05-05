@@ -10,7 +10,7 @@ import Feature from './components/Features/index.vue';
 import useInscriptions from '../../hooks/useInscriptions'
 
 const appStore = useAppStore();
-const Inscriptions = useInscriptions()
+const {Inscriptions, getInscriptions} = useInscriptions();
 </script>
 
 <template>

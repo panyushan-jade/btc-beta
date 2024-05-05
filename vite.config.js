@@ -185,12 +185,12 @@ export default (config) => {
       open: false,
       // 是否开启 https
       https: false,
-      host: '0.0.0.0',
+      host:"localhost",
       proxy: {
         '/api': {
-          target: 'http://18.141.223.215/',
+          target: 'http://18.141.223.215:8080/',
           changeOrigin: true,
-          // rewrite: (path) => path.replace(/^\/api/, '/'),
+          rewrite: (path) => path.replace(/^\/api/, '')
         },
       },
     },

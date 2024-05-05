@@ -1,9 +1,10 @@
 import { IAxiosResp } from '@/hooks/useAjax';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import { useAppStore } from '@/store/appStore'
 
 const defaultConfig = {
-  baseURL: '', // 写/api作为标记就好
+  baseURL: 'http://18.141.223.215:8080/', // 写/api作为标记就好
 };
 Object.assign(axios.defaults, defaultConfig);
 axios.defaults.headers['Content-Type'] = 'application/json';
@@ -11,6 +12,10 @@ axios.defaults.headers['Content-Type'] = 'application/json';
 // 请求拦截器
 axios.interceptors.request.use(
   (config) => {
+    const appStore = useAppStore();
+    config.headers.token = appStore.token
+    console.log(config.headers);
+    
     // 在发送请求之前做些什么
     /* const uid = localMemory.getItem('uid') || ''
 
@@ -67,7 +72,7 @@ export const $POST = <T>(url: string, payload: object): Promise<IAxiosResp<T>> =
   });
 };
 
-export const $GET = <T>(url: string, payload: object): Promise<IAxiosResp<T>> => {
+export const $GET = <T>(url: string, payload?: object): Promise<IAxiosResp<T>> => {
   return new Promise((resolve, reject) => {
     axios
       .get(url, {

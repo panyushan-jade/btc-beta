@@ -40,16 +40,22 @@ const { launchTo } = useLaunchTo();
         <div class="text-golden text-28">Community</div>
         <div class="flex mt-61">
           <img
+            src="@img/Youtube.png"
+            alt=""
+            class="w-50 mr-37 cursor-pointer"
+            @click="launchTo({ link: 'https://www.youtube.com/@BTCBeta' })"
+          />
+          <img
             src="@img/icon-twitter.png"
             alt=""
-            class="w-70 mr-52 cursor-pointer"
+            class="w-50 mr-37 cursor-pointer"
             @click="launchTo({ link: 'https://twitter.com/btc_beta' })"
           />
           <img
             @click="launchTo({ link: 'https://t.me/BTCBetaOfficialGroup' })"
             src="@img/icon-tg.png"
             alt=""
-            class="w-70 cursor-pointer"
+            class="w-50 cursor-pointer"
           />
         </div>
       </div>

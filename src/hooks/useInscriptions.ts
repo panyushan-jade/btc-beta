@@ -8,6 +8,9 @@ const useInscriptions = () => {
             try {
                 let res = await window.okxwallet.bitcoin.getInscriptions(0, 20);
                 console.log(res)
+                if (res) {
+                    Inscriptions.value = res.list
+                }
                 return res.list
             } catch (e) {
                 console.log(e);
@@ -17,7 +20,9 @@ const useInscriptions = () => {
         if (appStore.wallet === 'UNISAT') {
             try {
                 let res = await window.unisat.getInscriptions(0, 10);
-                console.log(res)
+                if (res) {
+                    Inscriptions.value = res.list
+                }
                 return res.list
             } catch (e) {
                 console.log(e);
@@ -27,9 +32,11 @@ const useInscriptions = () => {
     watch(() => appStore.defaultAccount, async(newValue, oldValue) => {
         Inscriptions.value = []
         if (newValue) {
-            Inscriptions.value = await getInscriptions()
+            getInscriptions()
         }
     })
-    return [Inscriptions, getInscriptions]
+    return {
+        Inscriptions, getInscriptions
+    }
 }
 export default useInscriptions;
