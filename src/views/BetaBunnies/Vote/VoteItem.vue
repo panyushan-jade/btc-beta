@@ -6,6 +6,8 @@ import { IBunnies } from './useBunnies';
 import { $POST } from '@/service/request';
 import useSignMessage from "@/hooks/useSignMessage";
 import { useAppStore } from '@store/appStore';
+import AlphaNFTNumber from "@/NFT/AlphaNFTNumber.json"
+import CrypticNFTNumber from "@/NFT/CrypticNFTNumber.json"
 
 const props = defineProps<{
  voteList: any;
@@ -30,7 +32,15 @@ const vote = async()=>{
       message: 'Please enter the correct NFTID',
       type: 'error'
     })
-    
+  }
+  //不是本平台的NFT
+  const NftAll = [...AlphaNFTNumber, ...CrypticNFTNumber]
+  if (!NftAll.some((NFT:{id: string}) => NFTID.value === NFT.id)){
+    return ElMessage({
+      showClose: true,
+      message: 'Please enter the NFTID of this platform',
+      type: 'error'
+    })
   }
   const sign = await signMessage(appStore.defaultAccount)
   if(sign[0]){
@@ -40,13 +50,12 @@ const vote = async()=>{
       type: 'error'
     })
   }
-  getInscriptions()
-  console.log(Inscriptions.value);
-  if(Inscriptions.value.find((item:IBunnies)=>'#'+item.inscriptionNumber === NFTID.value)){
+  await getInscriptions()
+  if(Inscriptions.value.some((item:{inscriptionNumber: string})=>'#'+item.inscriptionNumber === NFTID.value)){
     $POST('/vote/nftId',{
       "nftVoted": nftVoted.value,
       "userNftId": NFTID.value,
-      "userNftType": 1,
+      "userNftType": AlphaNFTNumber.some((NFT:{id: string}) => NFTID.value === NFT.id) ? 1 : 2,
       "signingMessages": sign[1]
     }).then(res=>{
       if(res.data){

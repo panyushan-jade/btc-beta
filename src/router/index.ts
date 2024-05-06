@@ -35,22 +35,22 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'Vote',
         name: 'Vote',
-        component: () => import(/* webpackChunkName: "Vote" */ '@/views/BetaBunnies/Vote.vue'),
+        component: () => import(/* webpackChunkName: "Vote" */ '@/views/BetaBunnies/Vote/index.vue'),
       },
       {
         path: 'Community',
         name: 'Community',
-        component: () => import(/* webpackChunkName: "Community" */ '@/views/BetaBunnies/Community.vue'),
+        component: () => import(/* webpackChunkName: "Community" */ '@/views/BetaBunnies/Community/index.vue'),
       },
       {
         path: 'Application',
         name: 'Application',
-        component: () => import(/* webpackChunkName: "Application" */ '@/views/BetaBunnies/Application.vue'),
+        component: () => import(/* webpackChunkName: "Application" */ '@/views/BetaBunnies/Application/index.vue'),
       },
       {
         path: 'Introduction',
         name: 'Introduction',
-        component: () => import(/* webpackChunkName: "Introduction" */ '@/views/BetaBunnies/Introduction'),
+        component: () => import(/* webpackChunkName: "Introduction" */ '@/views/BetaBunnies/Introduction/index.vue'),
       },
 
     ]

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SwitchContent, { IData } from '@cps/SwitchContent/index.vue';
-import { IBunnies } from './useBunnies';
+// import SwitchContent, { IData } from '@cps/SwitchContent/index.vue';
+import { IBunnies } from '../useBunnies';
 const props = defineProps<{
   bunnie: IBunnies;
 }>();

@@ -70,7 +70,7 @@ const menuListValue = reactive<IMemu[]>([
         id: 2,
         name: 'VALIDATOR REWARD',
         logo: require('@img/holder.png'),
-        urlName: 'Application',
+        urlName: 'Vote',
         // urlName: '',
         active: false,
       },

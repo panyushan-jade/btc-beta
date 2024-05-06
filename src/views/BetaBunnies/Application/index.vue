@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { IBunnies } from "./useBunnies";
+import { IBunnies } from "../useBunnies";
 import { useAppStore } from "@/store/appStore";
 import type { FormInstance } from "element-plus";
 import useInscriptions from "@/hooks/useInscriptions";
@@ -33,8 +33,7 @@ watch(() => appStore.defaultAccount, (Account) => {
 watch(() => appStore.token, (token) => {
   if (token) {
     $GET('/user/apply/for/identifier/info').then(res=>{
-      console.log(res,'申请记录');
-      ApplicationRecord.value = res.data
+      ApplicationRecord.value = res.data as []
     })
   }
 });
@@ -72,8 +71,7 @@ const submitHandle = async (formEl: FormInstance | undefined) => {
       }).then(res=>{
         if(res.data){
           $GET('/user/apply/for/identifier/info').then(res=>{
-            console.log(res,'申请记录');
-            ApplicationRecord.value = res.data
+            ApplicationRecord.value = res.data as []
           })
           return ElMessage({
             message:'Submitted successfully',
@@ -96,7 +94,7 @@ const submitHandle = async (formEl: FormInstance | undefined) => {
 const verifyNFTNumber = (rule, value, callback) => {
   if (!value) return callback(new Error());
 
-  const valid = CrypticNFTNumber.find(item => item.id === value) || AlphaNFTNumber.find(item => item.id === value);
+  const valid = (submitForm.region === 'Alpha' ? AlphaNFTNumber : CrypticNFTNumber).some(item => item.id === value);
 
   if (valid) {
     callback();
@@ -107,7 +105,7 @@ const verifyNFTNumber = (rule, value, callback) => {
 const verifyAttribution = (rule, value, callback) => {
   if (!value) return callback(new Error());
 
-  const valid = Inscriptions.value.find(item => '#'+item.inscriptionNumber === value);
+  const valid = Inscriptions.value.some(item => '#'+item.inscriptionNumber === value);
 
   if (valid) {
     callback();
@@ -154,8 +152,8 @@ const changeBtn = (value) => {
       <el-form-item label="Validator Type" prop="region">
         <el-select v-model="submitForm.region" popper-class="validator-type"
           placeholder="Select the validator type to apply for">
-          <el-option label="Alpha Validator" value="shanghai" />
-          <el-option label="Cryptic Validator" value="beijing" />
+          <el-option label="Alpha Validator" value="Alpha" />
+          <el-option label="Cryptic Validator" value="Cryptic" />
         </el-select>
       </el-form-item>
       <el-form-item label="Alpha Aurum Bunnies ID" prop="id">
@@ -174,8 +172,8 @@ const changeBtn = (value) => {
       </el-form-item>
     </el-form>
     <template v-else>
-      <div v-for="item in ApplicationRecord" class="sm:w-full md:w-full lg:w-80% mx-auto border-b border-1 border-#fdffb5 mb-15 flex p-y-20">
-        <span class="flex-1 text-left">{{item?.nft_id !== undefined ? item?.nft_id : '-'}}</span>
+      <div v-for="item in ApplicationRecord" :key="item.nft_id" class="sm:w-full md:w-full lg:w-80% mx-auto border-b border-1 border-#fdffb5 mb-15 flex p-y-20">
+        <span class="flex-1 text-left">{{item?.nft_ordinal !== undefined ? item?.nft_ordinal : '-'}}</span>
         <span class="flex-1 text-center">{{item?.application_status !== undefined ? statusMap[item?.application_status] : '-'}}</span>
         <span class="flex-1 text-right">{{item?.nft_id !== undefined ? item?.application_date : '-'}}</span>
       </div>

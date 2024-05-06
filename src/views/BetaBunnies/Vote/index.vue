@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VoteItem from "./VoteItem.vue";
-import { useBunnies } from "./useBunnies";
+import { useBunnies } from "../useBunnies";
 import { useAppStore } from "@/store/appStore";
 import EDIT from '@/assets/img/betaBunnies/edit.png'
 import { ref } from "vue";
@@ -72,7 +72,7 @@ const PreviousPage = () => {
           Cryptic Validator
         </button>
       </div>
-      <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30)"
+      <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30) cursor-pointer"
         @click="()=>router.push('/beta-bunnies/Application')">
         <img :src="EDIT" alt="" class="mr-10">
         Apply Now
@@ -81,7 +81,7 @@ const PreviousPage = () => {
     <div class="flex flex-wrap gap-110 justify-evenly">
       <VoteItem :voteList="candidatesList" />
     </div>
-    <div class="flex items-center justify-center mt-200">
+    <div v-if="pageTotal > pageSize" class="flex items-center justify-center mt-200">
         <button class="sm:(w-50% py-25 px-20) md:(w-50% py-25 px-20) lg:(w-180  p-15) p-20rem border-2 rounded-5 bg-#fdffb5" @click="PreviousPage">Previous page</button>
         <span class="ml-30 mr-30 color-#fdffb5 sm:text-20 md:text-20 lg:text-16">{{ pageNum }}/{{ Math.ceil(pageTotal/pageSize) }}</span>
         <button class="sm:(w-50% py-25 px-20) md:(w-50% py-25 px-20) lg:(w-180  p-15) p-20rem border-2 rounded-5 bg-#fdffb5 p-15" @click="NextPage">Next page</button>

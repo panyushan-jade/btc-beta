@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RABBIT from "@/assets/img/5f3b93ba9a385f617d6d2b27f7cc4005bbad38df9c94574a4e955bb9c22a724ei0.jpeg";
-import { IBunnies } from "./useBunnies";
+import { IBunnies } from "../useBunnies";
 import { useAppStore } from "@/store/appStore";
 import { $GET, $POST } from "@/service/request";
 import { ElMessage } from 'element-plus'
@@ -34,7 +34,7 @@ watch(() => appStore.defaultAccount, async (address) => {
       const NftAll = [...AlphaNFTNumber, ...CrypticNFTNumber]
       console.log(NftAll.length)
       Inscriptions.value.map(item => {
-        if (NftAll.find(NFT => '#' + item.inscriptionNumber === NFT.id)) {
+        if (NftAll.some(NFT => '#' + item.inscriptionNumber === NFT.id)) {
           myNFTID.value = '#' + item.inscriptionNumber
         }
       })
@@ -153,7 +153,7 @@ const PreviousPage = () => {
         Addresses
         List</div>
       <el-divider class="border-#EFEFEF" />
-      <div v-if="addressList.length" v-for="ls in addressList" :key="ls"
+      <div v-if="addressList.length > 0" v-for="ls in addressList" :key="ls"
         class="mb-10 sm:(text-20 text-center) md:(text-20 text-center) lg:(text-14 text-left)">
         {{ ls }}
       </div>
@@ -161,7 +161,7 @@ const PreviousPage = () => {
         Your Community Currently Has no Address
       </div>
     </div>
-    <div class="flex items-center justify-center mt-200">
+    <div v-if="pageTotal > pageSize" class="flex items-center justify-center mt-200">
       <button
         class="sm:(w-50% py-25 px-20) md:(w-50% py-25 px-20) lg:(w-180  p-15) p-20rem border-2 rounded-5 bg-#fdffb5"
         @click="PreviousPage">Previous page</button>
