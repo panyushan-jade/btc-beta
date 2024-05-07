@@ -105,9 +105,9 @@ const verifyNFTNumber = (rule, value, callback) => {
     callback(new Error());
   }
 }
-const verifyAttribution = (rule, value, callback) => {
+const verifyAttribution = async(rule, value, callback) => {
   if (!value) return callback(new Error());
-
+  await getInscriptions();
   const valid = Inscriptions.value.some(item => '#'+item.inscriptionNumber === value);
 
   if (valid) {
@@ -153,7 +153,11 @@ const changeBtn = (value) => {
     <el-form v-if="tabIndex === 1" ref="formRef" label-position="top" label-width="auto" :model="submitForm" :rules="rules"
       class="form-main sm:w-full md:w-full lg:w-80% mx-auto">
       <el-form-item label="Validator Type" prop="region">
-        <el-select v-model="submitForm.region" popper-class="validator-type"
+        <el-select v-model="submitForm.region" @change="()=>{
+          if(submitForm.id){
+            formRef.validateField('id')
+          }
+        }" popper-class="validator-type"
           placeholder="Select the validator type to apply for">
           <el-option label="Alpha Validator" value="Alpha" />
           <el-option label="Cryptic Validator" value="Cryptic" />
