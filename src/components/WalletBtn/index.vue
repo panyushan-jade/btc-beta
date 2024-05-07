@@ -19,10 +19,6 @@ import BUNNIES from "@/assets/img/bunnies.png";
 import DISCONNECT from "@/assets/img/disconnect.png";
 import WALLET from '@/assets/img/wallet.png';
 import ARROW from '@/assets/img/arrow.png';
-import usePublicKey from "@/hooks/usePublicKey";
-import useSignMessage from "@/hooks/useSignMessage";
-const signMessage = useSignMessage();
-const getPublicKey = usePublicKey();
 const appStore = useAppStore();
 const { connected } = useConnect();
 const isShowMenu = ref(false);
@@ -84,7 +80,6 @@ const menuList = [
     name: "Disconnect",
     src: DISCONNECT,
     handle:async () => {
-      // Sign()
       appStore.disconnectWallet()
     }
   },
@@ -123,29 +118,13 @@ const handleMenu = () => {
   document.body.style.overflow = isShowMenu.value ? 'hidden' : 'auto';
   props.changeWalletMenu(isShowMenu.value)
 }
-const Sign = async() => {
-  const sign = await signMessage(appStore.defaultAccount)
-  if(sign[0]){
-    return console.log('签名失败');
-  }
-  const publicKey = await getPublicKey()
-   if(publicKey[0]){
-    return console.log('获取公钥失败');
-  }
-  console.log({
-    Message: appStore.defaultAccount,
-    sign:sign[1],
-    publicKey:publicKey[1],
-  });
-  
-}
 </script>
 
 <template>
   <template v-if="appStore.curDevice === 'phone'">
     <div class="wallet-wrap text-24">
       <div
-      v-if="appStore.defaultAccount"
+      v-if="appStore.defaultAccount && appStore.token"
         class="account-address flex"
         @click="handleMenu"
       >

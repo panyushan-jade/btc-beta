@@ -19,6 +19,7 @@ const pageTotal = ref(0);
 const { Inscriptions, getInscriptions } = useInscriptions();
 const myNFTID = ref('')
 const addressList = ref([])
+const In = ref(false)
 watch(() => appStore.defaultAccount, async (address) => {
   if (address) {
     // $GET(`/community/parent/exist/${address}`).then((res)=>{
@@ -61,8 +62,13 @@ const Bind = async() => {
   if (!nftId) {
     return console.log('nftId is null');
   }
-  const sign = await signMessage(appStore.defaultAccount)
+  if(In){
+    return
+  }
+  In.value = true
+  const sign = await signMessage(appStore.defaultAccount, appStore.wallet, appStore.defaultAccount)
   if (sign[0]) {
+    In.value = false
     return console.log('签名失败');
   }
   $POST('/community/parent/bind', {
@@ -85,7 +91,9 @@ const Bind = async() => {
         })
       }
 
-    })
+  }).finally(()=>{
+    In.value = false
+  })
 }
 const NextPage = () => {
   if (pageNum.value >= Math.ceil(pageTotal.value / pageSize.value)) {
@@ -144,7 +152,12 @@ const PreviousPage = () => {
           <input type="text"
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input"
             placeholder="Please enter your community leader’s NFT ID" v-model="nftId" />
-          <button class="submit-btn p-20 text-25" @click="Bind">submit</button>
+          <button class="submit-btn p-20 text-25" @click="Bind"> 
+            <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
+                <circle cx="50" cy="50" r="20"></circle>
+            </svg>
+            submit
+          </button>
         </div>
       </div>
     </template>

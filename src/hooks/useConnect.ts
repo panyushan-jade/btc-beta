@@ -1,9 +1,44 @@
 import { useAppStore } from '@store/appStore';
 import { ElMessage } from "element-plus";
+import usePublicKey from "@/hooks/usePublicKey";
+import useSignMessage from "@/hooks/useSignMessage";
+import { $POST } from '@/service/request';
+const walletTypeMap = {
+    'OKX': 1,
+    'UNISAT': 2
+}
 const useConnect = () => {
+    const signMessage = useSignMessage();
+    const getPublicKey = usePublicKey();
     const appStore = useAppStore();
+    const JWTLogin = async (address: string, wallet: string) => {
+        if (!address) return
+        const sign = await signMessage(address, wallet, address)
+        console.log(sign, address)
+        if (sign[0]) {
+            return console.log('签名失败');
+        }
+        const publicKey = await getPublicKey(address, wallet)
+        console.log(publicKey);
+        if (publicKey && publicKey[0]) {
+            return console.log('获取公钥失败');
+        }
+        await $POST('/login', {
+            address,
+            publicKey: publicKey[1],
+            walletType: walletTypeMap[wallet],
+            hash: address,
+            // signatureHash: 'adminhucdhcd',
+            signatureHash: sign[1]
+        }).then((res: any) => {
+            if (res.code === 1) {
+                appStore.setAccount(address)
+                appStore.setWallet(wallet)
+                appStore.setToken(res.data)
+            }
+        })
+    }
     const connected = async (wallet: 'OKX' | 'UNISAT', callback?: Function, notInstallCallback?: Function) => {
-        console.log(wallet, callback);
 
         if (wallet === 'OKX') {
             const ua = navigator.userAgent;
@@ -12,19 +47,15 @@ const useConnect = () => {
             const isMobile = isIOS || isAndroid;
             const isOKApp = /OKApp/i.test(ua);
             if (isMobile && !isOKApp) {
-                return window.open('okx://wallet/dapp/details?dappUrl=https://www.lont.games')
+                return window.open('okx://wallet/dapp/details')
             }
             if (typeof window.okxwallet !== 'undefined') {
                 try {
                     const result = await window.okxwallet.bitcoin.connect()
-                    console.log(result)
                     if (result.address) {
-                        appStore.setAccount(result.address)
-                        appStore.setWallet(wallet)
-                        callback && callback(result.address)
-                        // window.okxwallet.bitcoin.on('accountChanged', (addressInfo) => {
-                        //     setAddress(addressInfo.address)
-                        // })
+                        JWTLogin(result.address, 'OKX').then(() => {
+                            callback && callback(result.address)
+                        })
                     }
                 } catch (error) {
                     console.log(error)
@@ -43,9 +74,9 @@ const useConnect = () => {
                     const accounts = await window.unisat.requestAccounts();
                     // let UnisatPubKey = await window.unisat.getPublicKey()
                     if (accounts[0]) {
-                        appStore.setAccount(accounts[0])
-                        appStore.setWallet(wallet)
-                        callback && callback(accounts[0])
+                        JWTLogin(accounts[0], 'UNISAT').then(() => {
+                            callback && callback(accounts[0])
+                        })
                     }
                 } catch (error) {
                     console.log(error)

@@ -35,34 +35,7 @@ export default {
     Footer,
   },
   setup() {
-    const signMessage = useSignMessage();
-    const getPublicKey = usePublicKey();
     const appStore = useAppStore();
-    watch(()=>appStore.defaultAccount,async (address)=>{
-      if(address){
-        const sign = await signMessage(address)
-        if(sign[0]){
-          return console.log('签名失败');
-        }
-        const publicKey = await getPublicKey()
-        if(publicKey[0]){
-          return console.log('获取公钥失败');
-        }
-        $POST('/login',{
-          address,
-          publicKey: publicKey[1],
-          walletType: walletTypeMap[appStore.wallet],
-          hash: address,
-          // signatureHash: 'adminhucdhcd',
-          signatureHash: sign[1]
-        }).then(res=>{
-          if(res.code === 1){
-            appStore.setToken(res.data)
-          }
-          console.log(res);
-        })
-      }
-    })
     return { appStore };
   }
 };

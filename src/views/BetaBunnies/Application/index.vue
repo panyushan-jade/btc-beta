@@ -15,9 +15,9 @@ import { ElMessage } from 'element-plus'
 const formRef = ref<FormInstance>();
 const appStore = useAppStore();
 const signMessage = useSignMessage();
-const getPublicKey = usePublicKey();
 const tabIndex = ref(1);
 const ApplicationRecord = ref([])
+const In = ref(false)
 const {Inscriptions, getInscriptions} = useInscriptions();
 const statusMap = {
   0: 'under review',
@@ -47,19 +47,19 @@ const submitForm = reactive({
 const submitHandle = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate(async (valid) => {
+    if(In.value){
+      return
+    }
+    In.value = true
     if (valid) {
-      console.log("submit!");
-      const sign = await signMessage(appStore.defaultAccount)
+      const sign = await signMessage(appStore.defaultAccount, appStore.wallet, appStore.defaultAccount)
       if(sign[0]){
+        In.value = false
         return ElMessage({
           message:'Signature failed',
           type: 'error'
         });
       }
-      // const publicKey = await getPublicKey()
-      // if(publicKey[0]){
-      //   return console.log('获取公钥失败');
-      // }
       $POST('/user/apply/for/identifier',{
         twitterAccount: submitForm.X,
         communityName: submitForm.name,
@@ -84,9 +84,12 @@ const submitHandle = async (formEl: FormInstance | undefined) => {
           });
         }
         
+      }).finally(()=>{
+        In.value = false
       })
     } else {
       console.log("error submit!");
+      In.value = true
       return false;
     }
   });
@@ -168,7 +171,12 @@ const changeBtn = (value) => {
       <el-form-item>
         <el-button type="primary"
           class="sumit-btn mx-auto w-100% mt-30 sm:(p-60 text-40) md:(p-60 text-40) lg:(p-40 text-25)"
-          @click="submitHandle(formRef)">Submit</el-button>
+          @click="submitHandle(formRef)">
+          <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
+              <circle cx="50" cy="50" r="20"></circle>
+          </svg>
+          Submit
+        </el-button>
       </el-form-item>
     </el-form>
     <template v-else>
