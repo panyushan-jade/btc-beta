@@ -1,6 +1,6 @@
 import {
   createRouter,
-  createWebHistory,
+  createWebHashHistory,
   RouteRecordRaw,
   RouteLocationNormalized,
   NavigationGuardNext,
@@ -70,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
 
 const env = getEnv(import.meta.env.MODE);
 const router = createRouter({
-  history: createWebHistory(env.routerBase),
+  history: createWebHashHistory(env.routerBase),
   routes,
 });
 

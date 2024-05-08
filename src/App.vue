@@ -22,6 +22,7 @@
 import TopBar from '@cps/TopBar/index.vue';
 import Footer from '@cps/Footer/index.vue';
 import { useAppStore } from '@store/appStore';
+import useCache from '@/hooks/useCache'
 import usePublicKey from "@/hooks/usePublicKey";
 import useSignMessage from "@/hooks/useSignMessage";
 import { $POST } from '@/service/request';
@@ -36,6 +37,7 @@ export default {
   },
   setup() {
     const appStore = useAppStore();
+    useCache()
     return { appStore };
   }
 };
@@ -66,8 +68,8 @@ export default {
 
 .Loading circle {
   fill: none;
-  stroke: #fff;
-  stroke-width: 5;
+  stroke: #FFD770;
+  stroke-width: 4;
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
   stroke-linecap: round;

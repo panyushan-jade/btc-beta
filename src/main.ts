@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
+import piniaPluginPersist from 'pinia-plugin-persist'
 import VueI18n from '@/locales/i18n';
 import 'animate.css';
 import bpDirective from './utils/bpDirective';
@@ -21,6 +22,8 @@ import { useAppStore } from './store/appStore';
 import { bpThrottle } from './hooks/useDeb';
 
 const pinia = createPinia();
+
+pinia.use(piniaPluginPersist)
 
 const vueApp = createApp(App);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

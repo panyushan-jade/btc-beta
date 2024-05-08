@@ -9,7 +9,7 @@ import { getChainData, getWalletReject } from '@/utils/tools';
 
 // ethers默认配置
 const INIT_ETHERS = {
-  ethers: ethers,
+  // ethers: ethers,
   instance: null,
   provider: {},
   signerValue: null, // 这个导出的时候是 proxy，需要用vue的toRaw转一下signer
@@ -28,7 +28,7 @@ const useAppStore = defineStore('app', {
   state: () => ({
     defaultAccount: '', //钱包账号
     wallet: '', //当前连接钱包
-    token:'',
+    token: '',
 
 
 
@@ -64,7 +64,7 @@ const useAppStore = defineStore('app', {
     setWallet(wallet: string) {
       this.wallet = wallet;
     },
-    disconnectWallet(){
+    disconnectWallet() {
       this.defaultAccount = '';
       this.wallet = '';
     },
@@ -388,6 +388,10 @@ const useAppStore = defineStore('app', {
     curLang() {
       return this.lang || window.localStorage.getItem('lang') || defaultLang;
     },
+  },
+  persist: {
+    enabled: true,
+    key: 'piniaStore', //存储名称
   },
 });
 

@@ -62,7 +62,7 @@ const Bind = async() => {
   if (!nftId) {
     return console.log('nftId is null');
   }
-  if(In){
+  if(In.value){
     return
   }
   In.value = true
@@ -152,7 +152,7 @@ const PreviousPage = () => {
           <input type="text"
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input"
             placeholder="Please enter your community leader’s NFT ID" v-model="nftId" />
-          <button class="submit-btn p-20 text-25 flex justify-center items-center" @click="Bind"> 
+          <button class="submit-btn h-75 text-25 flex justify-center items-center" @click="Bind"> 
             <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
                 <circle cx="50" cy="50" r="20"></circle>
             </svg>
