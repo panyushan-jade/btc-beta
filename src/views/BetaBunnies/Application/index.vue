@@ -164,7 +164,7 @@ const changeBtn = (value) => {
         </el-select>
       </el-form-item>
       <el-form-item label="Alpha Aurum Bunnies ID" prop="id">
-        <el-input v-model="submitForm.id" placeholder="#001 - #100" />
+        <el-input v-model="submitForm.id" placeholder="For Example：#65895570" />
       </el-form-item>
       <el-form-item label="X（Twitter）" prop="X">
         <el-input v-model="submitForm.X" placeholder="Please enter the URL" />
@@ -174,7 +174,7 @@ const changeBtn = (value) => {
       </el-form-item>
       <el-form-item>
         <el-button type="primary"
-          class="sumit-btn mx-auto w-100% mt-30 sm:(p-60 text-40) md:(p-60 text-40) lg:(p-40 text-25)"
+          class="sumit-btn mx-auto w-100% mt-30 sm:(p-60 text-40) md:(p-60 text-40) lg:(p-40 text-25) flex justify-center items-center"
           @click="submitHandle(formRef)">
           <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
               <circle cx="50" cy="50" r="20"></circle>

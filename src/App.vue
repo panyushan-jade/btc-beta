@@ -57,4 +57,42 @@ export default {
 .el-dialog{
   background: #161616 !important;
 }
+.Loading {
+  width: 1.5em;
+  transform-origin: center;
+  animation: rotate 2s linear infinite;
+  margin-right: 10px;
+}
+
+.Loading circle {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
+}
+
 </style>

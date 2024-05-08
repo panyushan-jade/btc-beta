@@ -104,7 +104,7 @@ const vote = async () => {
     <h1 class="text-center">Vote NFT</h1>
     <el-input class="mt-20 text-sm" v-model="NFTID" style="height: 45px;" placeholder="Please enter your NFT id"
       clearable />
-    <button class="vote-btn p-10 m-auto mb-10 mt-45" @click="vote">
+    <button class="vote-btn p-10 m-auto mb-10 mt-45 flex justify-center items-center" @click="vote">
       <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
         <circle cx="50" cy="50" r="20"></circle>
       </svg>
