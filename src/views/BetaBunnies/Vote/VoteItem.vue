@@ -66,6 +66,7 @@ const vote = async () => {
       "signingMessages": sign[1]
     }).then(res => {
       if (res.data) {
+        dialogTableVisible.value = false
         ElMessage({
           showClose: true,
           message: 'Vote success',
