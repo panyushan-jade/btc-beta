@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus';
 import { useAppStore } from '@/store/appStore'
 
 const defaultConfig = {
-  baseURL: 'http://18.141.223.215:8080/', // 写/api作为标记就好
+  baseURL: 'https://btcbeta.org/serverapi/', // 写/api作为标记就好
 };
 Object.assign(axios.defaults, defaultConfig);
 axios.defaults.headers['Content-Type'] = 'application/json';

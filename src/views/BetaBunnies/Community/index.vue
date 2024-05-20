@@ -19,6 +19,7 @@ const pageTotal = ref(0);
 const { Inscriptions, getInscriptions } = useInscriptions();
 const myNFTID = ref('')
 const addressList = ref([])
+const gathering = ref([])
 const In = ref(false);
 const currentSelect = ref(1)
 watch(() => appStore.defaultAccount, async (address) => {
@@ -32,21 +33,33 @@ watch(() => appStore.defaultAccount, async (address) => {
       console.log(res, "获取父级信息");
     })
     await getInscriptions()
+    console.log(Inscriptions.value, "获取子集信息");
+    
     if (Inscriptions.value.length > 0) {
       const NftAll = [...AlphaNFTNumber, ...CrypticNFTNumber]
       console.log(NftAll.length)
       Inscriptions.value.map(item => {
-        if (NftAll.some(NFT => '#' + item.inscriptionNumber === NFT.id)) {
-          myNFTID.value = '#' + item.inscriptionNumber
-        }
+        NftAll.forEach(NFT=>{
+          if('#' + item.inscriptionNumber === NFT.id){
+            if(gathering.value.length === 0){
+              myNFTID.value = NFT.id
+            }
+            gathering.value.push({
+              id: NFT.id,
+              number: NFT.number
+            })
+          }
+        })
       })
     }
   }
+},{
+  immediate: true
 })
 watch([myNFTID, pageNum], ([myNFTID, pageNum]) => {
   if (myNFTID) {
     $POST('/community/childs', {
-      "nftId": '#001',
+      "nftId": myNFTID,
       "pageNum": pageNum,
       "pageSize": pageSize.value
     }).then((res: any) => {
@@ -169,12 +182,12 @@ const changeSelect = v => currentSelect.value = v
         Addresses
         List</div>
       <el-divider class="border-#EFEFEF" />
-      <div class="flex justify-center gap-100">
-        <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'border border-4 border-#FFC93F' : 'brightness-50']" @click="changeSelect(1)">
-        <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)">
+      <div class="flex justify-center gap-100 mb-50">
+        <img :src="'https://ordinals.com/content/' + item.number" alt="" class="w-15% cursor-pointer" v-for="item in gathering" :class="[item.id == myNFTID ? 'border border-4 border-#FFC93F' : 'border border-4 border-transparent brightness-50']" @click="myNFTID = item.id">
+        <!-- <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50 border border-4 border-transparent' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)"> -->
       </div>
       <div v-if="addressList.length > 0" v-for="ls in addressList" :key="ls"
-        class="mb-10 sm:(text-20 text-center) md:(text-20 text-center) lg:(text-14 text-left)">
+        class="mb-10 text-center sm:(text-20) md:(text-20) lg:(text-14)">
         {{ ls }}
       </div>
       <div v-else class="text-center mt-100 color-#7E7E7E sm:text-20 md:text-20 lg:text-14">
