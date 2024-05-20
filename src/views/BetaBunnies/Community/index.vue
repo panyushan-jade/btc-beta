@@ -19,7 +19,8 @@ const pageTotal = ref(0);
 const { Inscriptions, getInscriptions } = useInscriptions();
 const myNFTID = ref('')
 const addressList = ref([])
-const In = ref(false)
+const In = ref(false);
+const currentSelect = ref(1)
 watch(() => appStore.defaultAccount, async (address) => {
   if (address) {
     // $GET(`/community/parent/exist/${address}`).then((res)=>{
@@ -109,6 +110,8 @@ const PreviousPage = () => {
     pageNum.value -= 1
   }
 }
+
+const changeSelect = v => currentSelect.value = v
 // const addressList = [
 //   {id:1,name:'1FWS9rt6Zsntddddddddddd5Tx5nLXTZBUbmD9maPjCV8'},
 //   {id:2,name:'1FWS9rt6Zsntddddddddddd5Tx5nLXTZBUbmD9maPjCV8'},
@@ -166,6 +169,10 @@ const PreviousPage = () => {
         Addresses
         List</div>
       <el-divider class="border-#EFEFEF" />
+      <div class="flex justify-center gap-100">
+        <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'border border-4 border-#FFC93F' : 'brightness-50']" @click="changeSelect(1)">
+        <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)">
+      </div>
       <div v-if="addressList.length > 0" v-for="ls in addressList" :key="ls"
         class="mb-10 sm:(text-20 text-center) md:(text-20 text-center) lg:(text-14 text-left)">
         {{ ls }}
