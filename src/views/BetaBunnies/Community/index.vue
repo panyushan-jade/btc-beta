@@ -135,13 +135,13 @@ const PreviousPage = () => {
     </template>
     <template v-else>
       <header class="text-center text-30rem mb-50">Your Community</header>
-      <div class="w-full flex">
-        <div class="w-40% flex flex-col">
+      <div class="w-full flex justify-center">
+        <div class="w-40% flex flex-col items-center" v-if="BindInfo">
           <span class="mb-40">Your Community Leader's Beta Bunnies</span>
 
-          <img v-if="BindInfo" :src="'https://ordinals.com/content/' + BindInfo.serialNumberHash" alt=""
+          <img :src="'https://ordinals.com/content/' + BindInfo.serialNumberHash" alt=""
             class="w-250 h-250" />
-          <img v-else :src="RABBIT" alt="" class="w-250 h-250" />
+          <!-- <img v-else :src="RABBIT" alt="" class="w-250 h-250" /> -->
 
         </div>
 

@@ -31,10 +31,12 @@ const useConnect = () => {
             // signatureHash: 'adminhucdhcd',
             signatureHash: sign[1]
         }).then((res: any) => {
+            console.log(res);
             if (res.code === 1) {
                 appStore.setAccount(address)
                 appStore.setWallet(wallet)
                 appStore.setToken(res.data)
+                
             }
         })
     }
@@ -57,6 +59,16 @@ const useConnect = () => {
                             callback && callback(result.address)
                         })
                     }
+                    window.okxwallet.bitcoin.on('accountsChanged', async(accounts) => {
+                        appStore.setAccount('')
+                        appStore.setWallet('')
+                        appStore.setToken('')
+                        if (accounts[0]) {
+                            JWTLogin(accounts[0], 'OKX').then(() => {
+                                callback && callback(accounts[0])
+                            })
+                        }
+                    });
                 } catch (error) {
                     console.log(error)
                     ElMessage.error(error.message)
@@ -77,6 +89,16 @@ const useConnect = () => {
                         JWTLogin(accounts[0], 'UNISAT').then(() => {
                             callback && callback(accounts[0])
                         })
+                        window.unisat.on('accountsChanged', async(accounts) => {
+                            appStore.setAccount('')
+                            appStore.setWallet('')
+                            appStore.setToken('')
+                            if (accounts[0]) {
+                                JWTLogin(accounts[0], 'UNISAT').then(() => {
+                                    callback && callback(accounts[0])
+                                })
+                            }
+                        });
                     }
                 } catch (error) {
                     console.log(error)

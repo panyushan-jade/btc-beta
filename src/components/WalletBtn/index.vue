@@ -93,11 +93,11 @@ async function handleLink(m) {
   
   if(m.WalletName){
     beingUsedWallet.value = m
-    connectDialogVisible.value = true;
+    // connectDialogVisible.value = true;
     connected(m.WalletName,(account,error)=>{
-      connectDialogVisible.value = false;
+      // connectDialogVisible.value = false;
     },()=>{
-      connectDialogVisible.value = false;
+      // connectDialogVisible.value = false;
       installDialogVisible.value = true
     })
   }else{

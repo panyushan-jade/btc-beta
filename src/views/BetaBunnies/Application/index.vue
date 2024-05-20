@@ -9,7 +9,7 @@ import CrypticNFTNumber from "@/NFT/CrypticNFTNumber.json"
 import usePublicKey from "@/hooks/usePublicKey";
 import useSignMessage from "@/hooks/useSignMessage";
 import { $POST, $GET } from "@/service/request";
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus';
 
 
 const formRef = ref<FormInstance>();
