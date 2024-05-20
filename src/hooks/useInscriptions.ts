@@ -6,7 +6,7 @@ const useInscriptions = () => {
     const getInscriptions = async () => {
         if (appStore.wallet === 'OKX') {
             try {
-                let res = await window.okxwallet.bitcoin.getInscriptions(0, 20);
+                let res = await window.okxwallet.bitcoin.getInscriptions(0, 999);
                 console.log(res)
                 if (res) {
                     Inscriptions.value = res.list
@@ -19,7 +19,7 @@ const useInscriptions = () => {
         }
         if (appStore.wallet === 'UNISAT') {
             try {
-                let res = await window.unisat.getInscriptions(0, 10);
+                let res = await window.unisat.getInscriptions(0, 999);
                 if (res) {
                     Inscriptions.value = res.list
                 }
