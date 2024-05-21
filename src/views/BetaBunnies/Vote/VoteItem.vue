@@ -95,7 +95,7 @@ const vote = async () => {
 
 <template>
   <div v-for="ls in props.voteList" :key="ls.id" class="w-300 text-center border border-#FFD770 border-1">
-    <img src="https://ordinals.com/content/5f3b93ba9a385f617d6d2b27f7cc4005bbad38df9c94574a4e955bb9c22a724ei0" alt=""
+    <img :src="'https://ordinals.com/content/'+ls.serialNumberHash" alt=""
       class="w-full" />
     <div class="mt-26 mb-26 text-31 md:text-26">{{ ls.votes }} Votes</div>
     <button class="vote-btn p-10 m-auto mb-10"
