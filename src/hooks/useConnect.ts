@@ -40,6 +40,26 @@ const useConnect = () => {
             }
         })
     }
+    window.okxwallet.bitcoin.on('accountsChanged', async(accounts) => {
+        if(appStore.wallet === 'OKX'){
+            appStore.setAccount('')
+            appStore.setWallet('')
+            appStore.setToken('')
+            if (accounts[0]) {
+                JWTLogin(accounts[0], 'OKX')
+            }
+        }
+    });
+    window.unisat.on('accountsChanged', async(accounts) => {
+        if(appStore.wallet === 'UNISAT'){
+            appStore.setAccount('')
+            appStore.setWallet('')
+            appStore.setToken('')
+            if (accounts[0]) {
+                JWTLogin(accounts[0], 'UNISAT')
+            }
+        }
+    });
     const connected = async (wallet: 'OKX' | 'UNISAT', callback?: Function, notInstallCallback?: Function) => {
 
         if (wallet === 'OKX') {
@@ -59,16 +79,6 @@ const useConnect = () => {
                             callback && callback(result.address)
                         })
                     }
-                    window.okxwallet.bitcoin.on('accountsChanged', async(accounts) => {
-                        appStore.setAccount('')
-                        appStore.setWallet('')
-                        appStore.setToken('')
-                        if (accounts[0]) {
-                            JWTLogin(accounts[0], 'OKX').then(() => {
-                                callback && callback(accounts[0])
-                            })
-                        }
-                    });
                 } catch (error) {
                     console.log(error)
                     ElMessage.error(error.message)
