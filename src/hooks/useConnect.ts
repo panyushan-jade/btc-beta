@@ -99,16 +99,6 @@ const useConnect = () => {
                         JWTLogin(accounts[0], 'UNISAT').then(() => {
                             callback && callback(accounts[0])
                         })
-                        window.unisat.on('accountsChanged', async(accounts) => {
-                            appStore.setAccount('')
-                            appStore.setWallet('')
-                            appStore.setToken('')
-                            if (accounts[0]) {
-                                JWTLogin(accounts[0], 'UNISAT').then(() => {
-                                    callback && callback(accounts[0])
-                                })
-                            }
-                        });
                     }
                 } catch (error) {
                     console.log(error)
