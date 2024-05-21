@@ -62,7 +62,7 @@ const submitHandle = async (formEl: FormInstance | undefined) => {
         nftId: submitForm.id,
         signingAddress: appStore.defaultAccount,
         signingMessages: sign[1],
-        type:1
+        type: submitForm.region === 'Alpha' ? 2 : 1
       }).then(res=>{
         if(res.data){
           $GET('/user/apply/for/identifier/info').then(res=>{
