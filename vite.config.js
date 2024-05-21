@@ -175,7 +175,6 @@ export default (config) => {
     },
 
     esbuild: {
-      pure: ['console.log'],
       minify: true,
     },
 
@@ -185,7 +184,7 @@ export default (config) => {
       open: false,
       // 是否开启 https
       https: false,
-      host:"localhost",
+      host: "0.0.0.0",
       proxy: {
         '/api': {
           target: 'http://18.141.223.215:8080/',

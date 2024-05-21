@@ -7,10 +7,8 @@ import Roadmap from './components/Roadmap/index.vue';
 import SubScribe from './components/Subscribe/index.vue';
 import { useAppStore } from '@store/appStore';
 import Feature from './components/Features/index.vue';
-import useInscriptions from '../../hooks/useInscriptions'
 
 const appStore = useAppStore();
-const {Inscriptions, getInscriptions} = useInscriptions();
 </script>
 
 <template>

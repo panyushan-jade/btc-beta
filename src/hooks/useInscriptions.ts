@@ -3,15 +3,20 @@ import { useAppStore } from '@store/appStore';
 const useInscriptions = () => {
     const appStore = useAppStore();
     const Inscriptions = ref([])
-    const getInscriptions = async () => {
+    const getInscriptions = async (start=0) => {
+        if(start === 0){
+            Inscriptions.value = []
+        }
         if (appStore.wallet === 'OKX') {
             try {
-                let res = await window.okxwallet.bitcoin.getInscriptions(0, 999);
-                console.log(res)
-                if (res) {
+                let res = await window.okxwallet.bitcoin.getInscriptions(start, start + 199);
+                if(res.total > 199){
+                    Inscriptions.value.push(...res.list)
+                    await getInscriptions(start + 199)
+                }else{
                     Inscriptions.value = res.list
                 }
-                return res.list
+                return Inscriptions.value
             } catch (e) {
                 console.log(e);
             }
@@ -19,7 +24,7 @@ const useInscriptions = () => {
         }
         if (appStore.wallet === 'UNISAT') {
             try {
-                let res = await window.unisat.getInscriptions(0, 999);
+                let res = await window.unisat.getInscriptions(0, 20);
                 if (res) {
                     Inscriptions.value = res.list
                 }
@@ -30,7 +35,6 @@ const useInscriptions = () => {
         }
     }
     watch(() => appStore.defaultAccount, async(newValue, oldValue) => {
-        Inscriptions.value = []
         if (newValue) {
             getInscriptions()
         }

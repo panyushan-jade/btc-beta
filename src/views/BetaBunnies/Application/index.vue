@@ -25,11 +25,6 @@ const statusMap = {
   2: 'Success',
   3: 'Fail',
 }
-watch(() => appStore.defaultAccount, (Account) => {
-  if (Account) {
-    getInscriptions()
-  }
-});
 watch(() => appStore.token, (token) => {
   if (token) {
     $GET('/user/apply/for/identifier/info').then(res=>{
