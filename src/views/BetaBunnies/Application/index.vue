@@ -31,6 +31,8 @@ watch(() => appStore.token, (token) => {
       ApplicationRecord.value = res.data as []
     })
   }
+},{
+  immediate: true
 });
 const submitForm = reactive({
   name: null,
