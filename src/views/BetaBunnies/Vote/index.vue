@@ -13,7 +13,7 @@ const router = useRouter();
 const appStore = useAppStore();
 const { bunniesList } = useBunnies();
 
-const currentIndex = ref(1);
+const currentIndex = ref(2);
 const pageNum = ref(1);
 const pageSize = ref(10);
 const pageTotal = ref(0);
@@ -60,15 +60,15 @@ const PreviousPage = () => {
     <div class="flex items-center lg:justify-between sm:justify-center md:justify-center mb-50 flex-wrap">
       <div class="flex items-center sm:w-full md:w-full lg:w-50%">
         <button class="lg:(w-250 text-15) rounded-10 p-25 mr-20 sm:(w-50% text-20) md:(w-50% text-20)" :class="{
-          'bg-#FDFFB5': currentIndex === 1,
-          'text-white': currentIndex === 2,
-        }" @click="clickHandle(1)">
-          Alpha Validator
-        </button>
-        <button class="lg:(w-250 text-15) rounded-10 p-25 sm:(w-50% text-20) md:(w-50% text-20)" :class="{
           'bg-#FDFFB5': currentIndex === 2,
           'text-white': currentIndex === 1,
         }" @click="clickHandle(2)">
+          Alpha Validator
+        </button>
+        <button class="lg:(w-250 text-15) rounded-10 p-25 sm:(w-50% text-20) md:(w-50% text-20)" :class="{
+          'bg-#FDFFB5': currentIndex === 1,
+          'text-white': currentIndex === 2,
+        }" @click="clickHandle(1)">
           Cryptic Validator
         </button>
       </div>

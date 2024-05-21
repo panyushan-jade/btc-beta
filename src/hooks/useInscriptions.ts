@@ -3,23 +3,25 @@ import { useAppStore } from '@store/appStore';
 const useInscriptions = () => {
     const appStore = useAppStore();
     const Inscriptions = ref([])
-    const getInscriptions = async (start=0) => {
-        if(start === 0){
-            Inscriptions.value = []
-        }
+    const getInscriptions = async () => {
         if (appStore.wallet === 'OKX') {
             try {
-                let res = await window.okxwallet.bitcoin.getInscriptions(start, start + 199);
-                if(res.total > 199){
+                let res = await window.okxwallet.bitcoin.getInscriptions(0,2);
+                console.log(res.total);
+                
+                if(res.total > 2){
                     Inscriptions.value.push(...res.list)
-                    for(let i = 199; i <= res.total; i+=199){
-                        let forRes = await window.okxwallet.bitcoin.getInscriptions(start, start + 199)
-                        Inscriptions.value.push(...forRes.list)
+                    let PromiseArr = []
+                    for(let i = 1; i <= res.total /2; i+=1){
+                        console.log(i,i + 2);
+                        
+                        PromiseArr.push(window.okxwallet.bitcoin.getInscriptions(i*2, 2))
                     }
+                    Promise.all(PromiseArr).then(resArr => resArr.map(item=> Inscriptions.value.push(...item.list)));
+                    
                 }else{
                     Inscriptions.value = res.list
                 }
-                console.log(Inscriptions.value);
                 
                 return Inscriptions.value
             } catch (e) {
