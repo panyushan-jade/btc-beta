@@ -91,8 +91,9 @@ const Bind = async() => {
   }).then(res => {
       console.log(res);
       if (res.data) {
-        $GET(`/community/parent/exist/${appStore.defaultAccount}`).then((res) => {
-          console.log(res);
+        $GET(`/community/parent/${appStore.defaultAccount}`).then((res) => {
+          BindInfo.value = res.data
+          console.log(res, "获取父级信息");
         })
         return ElMessage({
           message: 'Binding successful',
@@ -156,7 +157,7 @@ const changeSelect = v => currentSelect.value = v
           <span class="mb-40">Your Community Leader's Beta Bunnies</span>
 
           <img :src="'https://ordinals.com/content/' + BindInfo.serialNumberHash" alt=""
-            class="w-250 h-250" />
+            class="w-250 h-250 border-1 border-solid border-[#E6E6E6]" />
           <!-- <img v-else :src="RABBIT" alt="" class="w-250 h-250" /> -->
 
         </div>
@@ -168,7 +169,7 @@ const changeSelect = v => currentSelect.value = v
           <input type="text"
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input"
             placeholder="Please enter your community leader’s NFT ID" v-model="nftId" />
-          <button class="submit-btn h-75 text-25 flex justify-center items-center" @click="Bind"> 
+          <button class="submit-btn h-75 text-25 flex justify-center items-center hover:transform-scale-110" @click="Bind"> 
             <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
                 <circle cx="50" cy="50" r="20"></circle>
             </svg>
