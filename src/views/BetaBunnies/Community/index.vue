@@ -136,7 +136,7 @@ const changeSelect = v => currentSelect.value = v
 
 <template>
   <div class="w-90% mx-auto" :class="[appStore.curDevice === 'phone' ? '' : 'md:w-1300']">
-    <template v-if="appStore.curDevice === 'phone'">
+    <template v-if="appStore.curDevice === 'phone' && !BindInfo">
       <header class="text-center text-50 mb-50">Your Community</header>
       <div class="w-full flex flex-col items-center">
         <span class="mb-40 text-20">Your Community Leader's Beta Bunnies</span>
@@ -147,7 +147,7 @@ const changeSelect = v => currentSelect.value = v
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input w-90%"
             placeholder="Please enter your community leader’s NFT ID" />
         </div>
-        <button class="submit-btn p-40 w-90% font-bold text-50">submit</button>
+        <button class="submit-btn p-40 w-90% font-bold text-50" @click="Bind">submit</button>
       </div>
     </template>
     <template v-else>
@@ -183,7 +183,7 @@ const changeSelect = v => currentSelect.value = v
         Addresses
         List</div>
       <el-divider class="border-#EFEFEF" />
-      <div class="flex justify-center gap-100 mb-50">
+      <div class="flex justify-center gap-100 mb-50 max-w-[90%] mx-auto overflow-x-auto">
         <img :src="'https://ordinals.com/content/' + item.number" alt="" class="w-15% cursor-pointer" v-for="item in gathering" :class="[item.id == myNFTID ? 'border border-4 border-#FFC93F' : 'border border-4 border-#FFC93F brightness-50']" @click="myNFTID = item.id">
         <!-- <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50 border border-4 border-transparent' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)"> -->
       </div>
