@@ -185,7 +185,7 @@ const changeSelect = v => currentSelect.value = v
         Addresses
         List</div>
       <el-divider class="border-#EFEFEF" />
-      <div class="flex justify-center gap-100 mb-50 max-w-[90%] mx-auto overflow-x-auto">
+      <div class="flex justify-center gap-100 mb-50">
         <img :src="'https://ordinals.com/content/' + item.number" alt="" class="w-15% cursor-pointer" v-for="item in gathering" :class="[item.id == myNFTID ? 'border border-1 border-#FFFFFF' : 'border border-1 border-#FFFFFF brightness-50']" @click="myNFTID = item.id">
         <!-- <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50 border border-4 border-transparent' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)"> -->
       </div>
