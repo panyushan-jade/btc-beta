@@ -136,16 +136,18 @@ const changeSelect = v => currentSelect.value = v
 
 <template>
   <div class="w-90% mx-auto" :class="[appStore.curDevice === 'phone' ? '' : 'md:w-1300']">
-    <template v-if="appStore.curDevice === 'phone' && !BindInfo">
+    <template v-if="appStore.curDevice === 'phone'">
       <header class="text-center text-50 mb-50">Your Community</header>
       <div class="w-full flex flex-col items-center">
-        <span class="mb-40 text-20">Your Community Leader's Beta Bunnies</span>
-        <img :src="RABBIT" alt="" class="w-400" />
-        <div class="text-20 mb-10 w-90% flex flex-col">
+        <template v-if="BindInfo">
+          <span class="mb-40 text-20">Your Community Leader's Beta Bunnies</span>
+          <img :src="'https://ordinals.com/content/' + BindInfo.serialNumberHash" alt="" class="w-400" />
+        </template>
+        <div v-else class="text-20 mb-10 w-90% flex flex-col">
           <span class="text-30 mt-20 mb-20"><span class="color-red">*</span>Binding Community</span>
           <input type="text"
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input w-90%"
-            placeholder="Please enter your community leader’s NFT ID" />
+            placeholder="Please enter your community leader’s NFT ID" v-model="nftId" />
         </div>
         <button class="submit-btn p-40 w-90% font-bold text-50" @click="Bind">submit</button>
       </div>
@@ -184,7 +186,7 @@ const changeSelect = v => currentSelect.value = v
         List</div>
       <el-divider class="border-#EFEFEF" />
       <div class="flex justify-center gap-100 mb-50 max-w-[90%] mx-auto overflow-x-auto">
-        <img :src="'https://ordinals.com/content/' + item.number" alt="" class="w-15% cursor-pointer" v-for="item in gathering" :class="[item.id == myNFTID ? 'border border-1 border-#FFC93F' : 'border border-1 border-#FFC93F brightness-50']" @click="myNFTID = item.id">
+        <img :src="'https://ordinals.com/content/' + item.number" alt="" class="w-15% cursor-pointer" v-for="item in gathering" :class="[item.id == myNFTID ? 'border border-1 border-#FFFFFF' : 'border border-1 border-#FFFFFF brightness-50']" @click="myNFTID = item.id">
         <!-- <img :src="RABBIT" alt="" class="w-15% cursor-pointer" :class="[currentSelect == 1 ? 'brightness-50 border border-4 border-transparent' : 'border border-4 border-#FFC93F']" @click="changeSelect(2)"> -->
       </div>
       <div v-if="addressList.length > 0" v-for="ls in addressList" :key="ls"
