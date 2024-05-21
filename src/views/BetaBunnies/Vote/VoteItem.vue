@@ -119,10 +119,12 @@ const vote = async () => {
   // margin-top: 93rem;
   font-size: 26rem;
   // font-weight: bold;
-  background-image: url("/src/assets/img/betaBunnies/vote_btn.png");
-  background-size: 100% 100%;
+  background: url("/src/assets/img/betaBunnies/vote_btn.png") no-repeat center center / 100% 100%;
   width: 90%;
   font-family: 'scr';
   // height: 99rem;
+  &:hover{
+    transform: scale(1.1);
+  }
 }
 </style>

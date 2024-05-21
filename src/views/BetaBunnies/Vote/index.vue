@@ -72,7 +72,7 @@ const PreviousPage = () => {
           Cryptic Validator
         </button>
       </div>
-      <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30) cursor-pointer"
+      <div class="flex items-center lg:(mt-0 mb-0 text-15) sm:(mt-80 mb-30 text-30) md:(mt-10 mb-30 text-30) cursor-pointer hover:transform-scale-110"
         @click="()=>router.push('/beta-bunnies/Application')">
         <img :src="EDIT" alt="" class="mr-10">
         Apply Now
