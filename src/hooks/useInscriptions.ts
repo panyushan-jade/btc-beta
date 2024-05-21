@@ -6,22 +6,22 @@ const useInscriptions = () => {
     const getInscriptions = async () => {
         if (appStore.wallet === 'OKX') {
             try {
-                let res = await window.okxwallet.bitcoin.getInscriptions(0,2);
+                let res = await window.okxwallet.bitcoin.getInscriptions(0,50);
                 console.log(res.total);
                 
-                if(res.total > 2){
+                if(res.total > 50){
                     Inscriptions.value.push(...res.list)
                     let PromiseArr = []
-                    for(let i = 1; i <= res.total /2; i+=1){
-                        console.log(i,i + 2);
+                    for(let i = 1; i <= res.total /50; i+=1){
                         
-                        PromiseArr.push(window.okxwallet.bitcoin.getInscriptions(i*2, 2))
+                        PromiseArr.push(window.okxwallet.bitcoin.getInscriptions(i*50, 50))
                     }
                     Promise.all(PromiseArr).then(resArr => resArr.map(item=> Inscriptions.value.push(...item.list)));
                     
                 }else{
                     Inscriptions.value = res.list
                 }
+                console.log(Inscriptions.value);
                 
                 return Inscriptions.value
             } catch (e) {
