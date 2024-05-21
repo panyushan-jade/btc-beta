@@ -12,10 +12,15 @@ const useInscriptions = () => {
                 let res = await window.okxwallet.bitcoin.getInscriptions(start, start + 199);
                 if(res.total > 199){
                     Inscriptions.value.push(...res.list)
-                    await getInscriptions(start + 199)
+                    for(let i = 199; i <= res.total; i+=199){
+                        let forRes = await window.okxwallet.bitcoin.getInscriptions(start, start + 199)
+                        Inscriptions.value.push(...forRes.list)
+                    }
                 }else{
                     Inscriptions.value = res.list
                 }
+                console.log(Inscriptions.value);
+                
                 return Inscriptions.value
             } catch (e) {
                 console.log(e);
