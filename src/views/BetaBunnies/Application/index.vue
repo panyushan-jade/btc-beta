@@ -180,9 +180,9 @@ const changeBtn = (value) => {
     </el-form>
     <template v-else>
       <div v-for="item in ApplicationRecord" :key="item.nft_id" class="sm:w-full md:w-full lg:w-80% mx-auto border-b border-1 border-#fdffb5 mb-15 flex p-y-20">
-        <span class="flex-1 text-left">{{item?.nft_ordinal !== undefined ? item?.nft_ordinal : '-'}}</span>
-        <span class="flex-1 text-center">{{item?.application_status !== undefined ? statusMap[item?.application_status] : '-'}}</span>
-        <span class="flex-1 text-right">{{item?.nft_id !== undefined ? item?.application_date : '-'}}</span>
+        <span class="flex-1 text-[18px] text-left">{{item?.nft_ordinal !== undefined ? item?.nft_ordinal : '-'}}</span>
+        <span class="flex-1 text-[18px] text-center">{{item?.application_status !== undefined ? statusMap[item?.application_status] : '-'}}</span>
+        <span class="flex-1 text-[18px] text-right">{{item?.nft_id !== undefined ? item?.application_date : '-'}}</span>
       </div>
     </template>
   </div>
