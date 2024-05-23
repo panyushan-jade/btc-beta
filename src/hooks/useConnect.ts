@@ -50,7 +50,7 @@ const useConnect = () => {
             }
         }
     });
-    window.unisat.on('accountsChanged', async(accounts) => {
+    window.unisat?.on('accountsChanged', async(accounts) => {
         if(appStore.wallet === 'UNISAT'){
             appStore.setAccount('')
             appStore.setWallet('')
