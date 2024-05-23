@@ -4,6 +4,7 @@ const useInscriptions = () => {
     const appStore = useAppStore();
     const Inscriptions = ref([])
     const getInscriptions = async () => {
+        Inscriptions.value = []
         if (appStore.wallet === 'OKX') {
             try {
                 let res = await window.okxwallet.bitcoin.getInscriptions(0,199);

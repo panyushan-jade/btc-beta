@@ -32,6 +32,9 @@ watch(() => appStore.defaultAccount, async (address) => {
       BindInfo.value = res.data
       console.log(res, "获取父级信息");
     })
+    myNFTID.value = ''
+    addressList.value = []
+    gathering.value = []
     await getInscriptions()
     console.log(Inscriptions.value, "获取子集信息");
     
@@ -51,6 +54,9 @@ watch(() => appStore.defaultAccount, async (address) => {
           }
         })
       })
+    }else{
+      myNFTID.value = ''
+      gathering.value = []
     }
   }
 },{
@@ -172,7 +178,7 @@ const changeSelect = v => currentSelect.value = v
             class="border-2 rounded-10 p-40 mb-50 bg-transparent color-white border-white community_input"
             placeholder="Please enter your community leader’s NFT ID" v-model="nftId" />
           <button class="submit-btn h-75 text-25 flex justify-center items-center hover:transform-scale-110" @click="Bind"> 
-            <svg v-if="In" viewBox="25 25 50 50" class='Loading'>
+            <svg v-if="In" viewBox="25 25 50 50" class='Loading'>       
                 <circle cx="50" cy="50" r="20"></circle>
             </svg>
             submit
