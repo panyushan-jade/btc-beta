@@ -21,6 +21,16 @@ const routes: Array<RouteRecordRaw> = [
       needTips: true, // 链不对的时候，需不需要提示
     },
   },
+  {
+    path: '/BRC-202',
+    name: 'BRC-202',
+    component: () => import(/* webpackChunkName: "BRC" */ '@/views/BRC-202/index.vue'),
+    meta: {
+      requireAccount: true,
+      needChains: curNeedChain(['bsc']), // 依赖的链
+      needTips: true, // 链不对的时候，需不需要提示
+    },
+  },
 
   {
     path: '/beta-bunnies',

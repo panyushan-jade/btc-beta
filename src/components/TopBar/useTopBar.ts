@@ -49,7 +49,7 @@ const menuListValue = reactive<IMemu[]>([
     id: 2,
     name: 'BRC-202',
     logo: require('@img/holder.png'),
-    urlName: '',
+    urlName: 'BRC-202',
     active: false,
   },
   {
