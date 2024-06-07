@@ -30,7 +30,7 @@ const launchTo = () => {
     background-size: 100% 100%;
     font-weight: bold;
     position: absolute;
-    @include -top(546rem, 30vw, 30vw);
+    @include -top(546rem, 35vw, 35vw);
     left: 50%;
     transform: translateX(-50%);
     height: 80rem;
