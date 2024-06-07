@@ -40,7 +40,7 @@ const useConnect = () => {
             }
         })
     }
-    window.okxwallet.bitcoin.on('accountsChanged', async(accounts) => {
+    window.okxwallet?.bitcoin?.on('accountsChanged', async(accounts) => {
         if(appStore.wallet === 'OKX'){
             appStore.setAccount('')
             appStore.setWallet('')
@@ -50,7 +50,7 @@ const useConnect = () => {
             }
         }
     });
-    window.unisat.on('accountsChanged', async(accounts) => {
+    window.unisat?.on('accountsChanged', async(accounts) => {
         if(appStore.wallet === 'UNISAT'){
             appStore.setAccount('')
             appStore.setWallet('')
